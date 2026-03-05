@@ -17,7 +17,7 @@
             position: relative;
             min-height: 100vh;
             color: #831843;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.8s ease, color 0.8s ease;
         }
 
         /* Dark mode styles */
@@ -28,11 +28,13 @@
 
         body.dark-mode #bg-video {
             opacity: 0;
+            transition: opacity 0.8s ease;
         }
 
         body.dark-mode .bg-white {
             background-color: #2d2d44 !important;
             color: #e0e0e0;
+            transition: background-color 0.8s ease, color 0.8s ease;
         }
 
         body.dark-mode .text-pink-400,
@@ -85,6 +87,12 @@
         .nav-link.active {
             text-shadow: 0 0 10px rgba(251, 146, 60, 0.8), 0 0 20px rgba(251, 146, 60, 0.6);
             color: #fb923c !important;
+        }
+
+        /* Ensure active link stays bright orange in dark mode */
+        body.dark-mode .nav-link.active {
+            text-shadow: 0 0 15px rgba(251, 146, 60, 1), 0 0 25px rgba(251, 146, 60, 0.8);
+            color: #ffa500 !important;
         }
 
         /* Focus indicators */
@@ -235,6 +243,144 @@
             width: 100%;
             min-width: fit-content;
         }
+        /* Social media icon hover effects in light mode */
+        #contact a svg {
+            transition: all 0.3s ease;
+        }
+
+        #contact a:hover svg {
+            filter: drop-shadow(0 0 8px rgba(190, 24, 93, 0.6));
+        }
+
+        /* Button hover glow effects */
+        button, .bg-pink-400, .bg-pink-500 {
+            transition: all 0.3s ease;
+        }
+
+        button:hover, .bg-pink-400:hover, .bg-pink-500:hover {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 30px rgba(236, 72, 153, 0.3);
+        }
+
+        body.dark-mode button:hover, 
+        body.dark-mode .bg-pink-400:hover, 
+        body.dark-mode .bg-pink-500:hover {
+            box-shadow: 0 0 25px rgba(251, 146, 60, 0.7), 0 0 40px rgba(251, 146, 60, 0.4);
+        }
+
+        /* Touch feedback and mobile optimizations */
+        @media (max-width: 768px) {
+            button:active, .bg-pink-400:active, .bg-pink-500:active,
+            a:active, .nav-link:active {
+                transform: scale(0.95);
+            }
+
+            .heart {
+                animation-duration: 20s;
+            }
+
+            #bg-video {
+                display: none;
+            }
+
+            body::before {
+                background: linear-gradient(135deg, #fce7f3 0%, #ddd6fe 100%);
+            }
+
+            body.dark-mode::before {
+                background: #1a1a2e;
+            }
+
+            .nav-link, #mobile-menu a, button {
+                min-height: 44px;
+                min-width: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #contact a svg {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        /* Scroll to top button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        /* Ensure footer is visible on mobile */
+        footer {
+            position: relative;
+            z-index: 10;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                margin-bottom: 20px;
+            }
+        }
+
+        #scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+        }
+
+        #scroll-to-top.show {
+            display: flex;
+        }
+
+        body.dark-mode #scroll-to-top {
+            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.4);
+        }
+
+        body.dark-mode #scroll-to-top:hover {
+            box-shadow: 0 6px 20px rgba(251, 146, 60, 0.6);
+        }
+
+        /* Mobile menu overlay */
+        #mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+
+        #mobile-menu-overlay.show {
+            display: block;
+        }
+
+        /* Social media icon hover effects in dark mode */
+        body.dark-mode #contact a svg {
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode #contact a:hover svg {
+            filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.8));
+        }
+
+        body.dark-mode #contact a:hover {
+            color: #fb923c !important;
+        }
     </style>
 </head>
 <body class="text-pink-800">
@@ -242,6 +388,16 @@
     <video autoplay muted loop playsinline id="bg-video">
         <source src="Pink_Blue_Background.mp4" type="video/mp4">
     </video>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu-overlay"></div>
+
+    <!-- Scroll to top button -->
+    <div id="scroll-to-top" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </div>
 
     <div class="hearts-container">
         <script>
@@ -453,7 +609,42 @@
         // Mobile Menu Script
         const btn = document.getElementById('mobile-menu-button');
         const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        const overlay = document.getElementById('mobile-menu-overlay');
+        
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            overlay.classList.toggle('show');
+        });
+
+        overlay.addEventListener('click', () => {
+            menu.classList.add('hidden');
+            overlay.classList.remove('show');
+        });
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                overlay.classList.remove('show');
+            });
+        });
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
 
         // Cursor heart trail effect
         let lastTrailTime = 0;

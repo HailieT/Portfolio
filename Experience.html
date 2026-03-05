@@ -22,7 +22,7 @@
             position: relative;
             min-height: 100vh;
             color: #831843;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.8s ease, color 0.8s ease;
         }
 
         /* Dark mode styles */
@@ -33,11 +33,13 @@
 
         body.dark-mode #bg-video {
             opacity: 0;
+            transition: opacity 0.8s ease;
         }
 
         body.dark-mode .bg-white {
             background-color: #2d2d44 !important;
             color: #e0e0e0;
+            transition: background-color 0.8s ease, color 0.8s ease;
         }
 
         body.dark-mode .text-pink-400,
@@ -54,13 +56,20 @@
             background-color: #4a1942 !important;
         }
 
-        body.dark-mode .model-card {
-            background-color: #2d2d44 !important;
-        }
-
         body.dark-mode .skill-badge {
             background-color: #4a1942 !important;
             color: #f48fb1 !important;
+        }
+
+        /* Timeline cards transparent to not block timeline */
+        body.dark-mode .model-card {
+            background-color: transparent !important;
+        }
+
+        /* Award cards with darker background and glow */
+        body.dark-mode .award-card {
+            background-color: #2d2d44 !important;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.3) !important;
         }
 
         /* Mobile menu dark mode */
@@ -312,6 +321,12 @@
             color: #fb923c !important;
         }
 
+        /* Ensure active link stays bright orange in dark mode */
+        body.dark-mode .nav-link.active {
+            text-shadow: 0 0 15px rgba(251, 146, 60, 1), 0 0 25px rgba(251, 146, 60, 0.8);
+            color: #ffa500 !important;
+        }
+
         /* Focus indicators */
         a:focus, button:focus {
             outline: 3px solid #fb923c;
@@ -348,6 +363,144 @@
             box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
         }
 
+        /* Social media icon hover effects in light mode */
+        #contact a svg {
+            transition: all 0.3s ease;
+        }
+
+        #contact a:hover svg {
+            filter: drop-shadow(0 0 8px rgba(190, 24, 93, 0.6));
+        }
+
+        /* Button hover glow effects */
+        button, .bg-pink-400, .bg-pink-500 {
+            transition: all 0.3s ease;
+        }
+
+        button:hover, .bg-pink-400:hover, .bg-pink-500:hover {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 30px rgba(236, 72, 153, 0.3);
+        }
+
+        body.dark-mode button:hover, 
+        body.dark-mode .bg-pink-400:hover, 
+        body.dark-mode .bg-pink-500:hover {
+            box-shadow: 0 0 25px rgba(251, 146, 60, 0.7), 0 0 40px rgba(251, 146, 60, 0.4);
+        }
+
+        /* Touch feedback and mobile optimizations */
+        @media (max-width: 768px) {
+            button:active, .bg-pink-400:active, .bg-pink-500:active,
+            a:active, .nav-link:active {
+                transform: scale(0.95);
+            }
+
+            .heart {
+                animation-duration: 20s;
+            }
+
+            #bg-video {
+                display: none;
+            }
+
+            body::before {
+                background: linear-gradient(135deg, #fce7f3 0%, #ddd6fe 100%);
+            }
+
+            body.dark-mode::before {
+                background: #1a1a2e;
+            }
+
+            .nav-link, #mobile-menu a, button {
+                min-height: 44px;
+                min-width: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #contact a svg {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        /* Scroll to top button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        /* Ensure footer is visible on mobile */
+        footer {
+            position: relative;
+            z-index: 10;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                margin-bottom: 20px;
+            }
+        }
+
+        #scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+        }
+
+        #scroll-to-top.show {
+            display: flex;
+        }
+
+        body.dark-mode #scroll-to-top {
+            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.4);
+        }
+
+        body.dark-mode #scroll-to-top:hover {
+            box-shadow: 0 6px 20px rgba(251, 146, 60, 0.6);
+        }
+
+        /* Mobile menu overlay */
+        #mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+
+        #mobile-menu-overlay.show {
+            display: block;
+        }
+
+        /* Social media icon hover effects in dark mode */
+        body.dark-mode #contact a svg {
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode #contact a:hover svg {
+            filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.8));
+        }
+
+        body.dark-mode #contact a:hover {
+            color: #fb923c !important;
+        }
     </style>
 </head>
 <body class="text-pink-800">
@@ -356,6 +509,16 @@
            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
         <source src="Pink_Blue_Background.mp4" type="video/mp4">
     </video>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu-overlay"></div>
+
+    <!-- Scroll to top button -->
+    <div id="scroll-to-top" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </div>
 
     <!-- Floating Hearts -->
     <div class="hearts-container">
@@ -648,7 +811,7 @@
                 <a href="mailto:hlt22c@fsu.edu" class="bg-pink-400 text-white font-bold rounded-full py-4 px-8 shadow-lg uppercase tracking-wider hover:bg-rose-700 transition duration-300 inline-block mb-8" target="_blank" rel="noopener noreferrer">
                     Email Me
                 </a>
-                <div class="model-card reveal flex justify-center space-x-6">
+                <div class="flex justify-center space-x-6">
                     <a href="https://github.com/HailieT" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:text-rose-600 transition duration-300">
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="false"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.838 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
                     </a>
@@ -685,15 +848,41 @@
         // Simple script for mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            mobileMenuOverlay.classList.toggle('show');
+        });
+
+        mobileMenuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenuOverlay.classList.remove('show');
         });
 
         // Close mobile menu when a link is clicked
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenuOverlay.classList.remove('show');
+            });
+        });
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
 

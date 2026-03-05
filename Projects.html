@@ -20,7 +20,7 @@
             background-repeat: no-repeat;
             position: relative;
             min-height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.8s ease, color 0.8s ease;
         }
 
         /* Dark mode styles */
@@ -31,11 +31,13 @@
 
         body.dark-mode #bg-video {
             opacity: 0;
+            transition: opacity 0.8s ease;
         }
 
         body.dark-mode .bg-white {
             background-color: #2d2d44 !important;
             color: #e0e0e0;
+            transition: background-color 0.8s ease, color 0.8s ease;
         }
 
         body.dark-mode .text-pink-400,
@@ -83,6 +85,12 @@
         .nav-link.active {
             text-shadow: 0 0 10px rgba(251, 146, 60, 0.8), 0 0 20px rgba(251, 146, 60, 0.6);
             color: #fb923c !important;
+        }
+
+        /* Ensure active link stays bright orange in dark mode */
+        body.dark-mode .nav-link.active {
+            text-shadow: 0 0 15px rgba(251, 146, 60, 1), 0 0 25px rgba(251, 146, 60, 0.8);
+            color: #ffa500 !important;
         }
 
         /* Focus indicators */
@@ -479,6 +487,310 @@
             width: 100%;
             min-width: fit-content;
         }
+
+        /* Mobile swipe indicators */
+        .swipe-hint {
+            display: none;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            background: rgba(236, 72, 153, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            animation: pulseHint 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .swipe-hint {
+                display: block;
+            }
+        }
+
+        @keyframes pulseHint {
+            0%, 100% {
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        /* Mobile navigation arrows - always visible on mobile */
+        .mobile-nav-arrow {
+            display: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 15;
+            background: rgba(236, 72, 153, 0.8);
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-nav-arrow {
+                display: block;
+            }
+        }
+
+        .mobile-nav-arrow:active {
+            background: rgba(236, 72, 153, 1);
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .mobile-nav-arrow.left {
+            left: 10px;
+        }
+
+        .mobile-nav-arrow.right {
+            right: 10px;
+        }
+
+        /* Scroll progress dots for mobile */
+        .scroll-dots {
+            display: none;
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .scroll-dots {
+                display: flex;
+            }
+        }
+
+        .scroll-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+        }
+
+        .scroll-dot.active {
+            background: rgba(236, 72, 153, 1);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Swipe animation arrows */
+        .swipe-arrows {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .swipe-arrows {
+                display: flex;
+                gap: 40px;
+            }
+        }
+
+        .swipe-arrow-left,
+        .swipe-arrow-right {
+            font-size: 32px;
+            color: rgba(236, 72, 153, 0.6);
+            animation: swipeAnimation 2s ease-in-out infinite;
+        }
+
+        .swipe-arrow-left {
+            animation-delay: 0s;
+        }
+
+        .swipe-arrow-right {
+            animation-delay: 1s;
+        }
+
+        @keyframes swipeAnimation {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateX(0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateX(-10px);
+            }
+        }
+
+        .swipe-arrow-right {
+            animation-name: swipeAnimationRight;
+        }
+
+        @keyframes swipeAnimationRight {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateX(0);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateX(10px);
+            }
+        }
+
+        /* Hide swipe hints after first interaction */
+        .swipe-hints-hidden .swipe-hint,
+        .swipe-hints-hidden .swipe-arrows {
+            display: none !important;
+        }
+        /* Social media icon hover effects in light mode */
+        #contact a svg {
+            transition: all 0.3s ease;
+        }
+
+        #contact a:hover svg {
+            filter: drop-shadow(0 0 8px rgba(190, 24, 93, 0.6));
+        }
+
+        /* Button hover glow effects */
+        button, .bg-pink-400, .bg-pink-500 {
+            transition: all 0.3s ease;
+        }
+
+        button:hover, .bg-pink-400:hover, .bg-pink-500:hover {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 30px rgba(236, 72, 153, 0.3);
+        }
+
+        body.dark-mode button:hover, 
+        body.dark-mode .bg-pink-400:hover, 
+        body.dark-mode .bg-pink-500:hover {
+            box-shadow: 0 0 25px rgba(251, 146, 60, 0.7), 0 0 40px rgba(251, 146, 60, 0.4);
+        }
+
+        /* Touch feedback and mobile optimizations */
+        @media (max-width: 768px) {
+            button:active, .bg-pink-400:active, .bg-pink-500:active,
+            a:active, .nav-link:active {
+                transform: scale(0.95);
+            }
+
+            .heart {
+                animation-duration: 20s;
+            }
+
+            #bg-video {
+                display: none;
+            }
+
+            body::before {
+                background: linear-gradient(135deg, #fce7f3 0%, #ddd6fe 100%);
+            }
+
+            body.dark-mode::before {
+                background: #1a1a2e;
+            }
+
+            .nav-link, #mobile-menu a, button {
+                min-height: 44px;
+                min-width: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #contact a svg {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        /* Scroll to top button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        /* Ensure footer is visible on mobile */
+        footer {
+            position: relative;
+            z-index: 10;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            footer {
+                margin-bottom: 20px;
+            }
+        }
+
+        #scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+        }
+
+        #scroll-to-top.show {
+            display: flex;
+        }
+
+        body.dark-mode #scroll-to-top {
+            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.4);
+        }
+
+        body.dark-mode #scroll-to-top:hover {
+            box-shadow: 0 6px 20px rgba(251, 146, 60, 0.6);
+        }
+
+        /* Mobile menu overlay */
+        #mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+        }
+
+        #mobile-menu-overlay.show {
+            display: block;
+        }
+
+        /* Social media icon hover effects in dark mode */
+        body.dark-mode #contact a svg {
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode #contact a:hover svg {
+            filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.8));
+        }
+
+        body.dark-mode #contact a:hover {
+            color: #fb923c !important;
+        }
     </style>
 </head>
 <body class="text-pink-800">
@@ -487,6 +799,16 @@
            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
         <source src="Pink_Blue_Background.mp4" type="video/mp4">
     </video>
+
+    <!-- Mobile menu overlay -->
+    <div id="mobile-menu-overlay"></div>
+
+    <!-- Scroll to top button -->
+    <div id="scroll-to-top" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </div>
 
     <!-- Floating Hearts -->
     <div class="hearts-container">
@@ -617,10 +939,34 @@
         <h2 class="text-3xl font-bold">My Projects</h2>
         <p class="text-pink-400 mt-3">Swipe or click to explore what I've built!</p>
     </div>
-    <div class="relative group">
+    <div class="relative group" id="carousel-container">
+        <!-- Desktop arrows -->
         <button onclick="scrollCarousel('left')" class="hidden md:block absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/70 hover:bg-white text-pink-600 p-3 rounded-full shadow-lg transition-all backdrop-blur-sm">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
         </button>
+        
+        <!-- Mobile navigation arrows -->
+        <button onclick="scrollCarousel('left')" class="mobile-nav-arrow left" aria-label="Previous project">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button onclick="scrollCarousel('right')" class="mobile-nav-arrow right" aria-label="Next project">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+        
+        <!-- Swipe hint text -->
+        <div class="swipe-hint">
+            👈 Swipe to explore 👉
+        </div>
+        
+        <!-- Animated swipe arrows -->
+        <div class="swipe-arrows">
+            <span class="swipe-arrow-left">←</span>
+            <span class="swipe-arrow-right">→</span>
+        </div>
+        
+        <!-- Scroll progress dots -->
+        <div class="scroll-dots" id="scroll-dots"></div>
+        
         <div id="project-slider" class="flex overflow-x-auto gap-8 py-8 px-4 snap-x snap-mandatory scroll-smooth no-scrollbar">
             
             
@@ -918,7 +1264,6 @@
                 </div>
             </div>
         </section>
-        <br />
 
         <!-- Contact Section -->
         <section id="contact">
@@ -946,7 +1291,6 @@
                         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 512 512" aria-hidden="false">
                             <path d="M71.92 34.77C50.2 47.67 7.4 96.84 7 109.73v21.34c0 27.06 25.29 50.84 48.25 50.84 27.57 0 50.54-22.85 50.54-50 0 27.12 22.18 50 49.76 50s49-22.85 49-50c0 27.12 23.59 50 51.16 50h.5c27.57 0 51.16-22.85 51.16-50 0 27.12 21.47 50 49 50s49.76-22.85 49.76-50c0 27.12 23 50 50.54 50 23 0 48.25-23.78 48.25-50.84v-21.34c-.4-12.9-43.2-62.07-64.92-75C372.56 32.4 325.76 32 256 32S91.14 33.1 71.92 34.77zm132.32 134.39c-22 38.4-77.9 38.71-99.85.25-13.17 23.14-43.17 32.07-56 27.66-3.87 40.15-13.67 237.13 17.73 269.15 80 18.67 302.08 18.12 379.76 0 31.65-32.27 21.32-232 17.75-269.15-12.92 4.44-42.88-4.6-56-27.66-22 38.52-77.85 38.1-99.85-.24-7.1 12.49-23.05 28.94-51.76 28.94a57.54 57.54 0 0 1-51.75-28.94zm-41.58 53.77c16.47 0 31.09 0 49.22 19.78a436.91 436.91 0 0 1 88.18 0C318.22 223 332.85 223 349.31 223c52.33 0 65.22 77.53 83.87 144.45 17.26 62.15-5.52 63.67-33.95 63.73-42.15-1.57-65.49-32.18-65.49-62.79-39.25 6.43-101.93 8.79-155.55 0 0 30.61-23.34 61.22-65.49 62.79-28.42-.06-51.2-1.58-33.94-63.73 18.67-67 31.56-144.45 83.88-144.45zM256 270.79s-44.38 40.77-52.35 55.21l29-1.17v25.32c0 1.55 21.34.16 23.33.16 11.65.54 23.31 1 23.31-.16v-25.28l29 1.17c-8-14.48-52.35-55.24-52.35-55.24z" />
                         </svg>
-                        <br />
                     </a>
                 </div>
             </div>
@@ -964,15 +1308,41 @@
         // Simple script for mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            mobileMenuOverlay.classList.toggle('show');
+        });
+
+        mobileMenuOverlay.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            mobileMenuOverlay.classList.remove('show');
         });
 
         // Close mobile menu when a link is clicked
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
+                mobileMenuOverlay.classList.remove('show');
+            });
+        });
+
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
     </script>
@@ -982,6 +1352,9 @@
         const container = document.getElementById('project-slider');
         const scrollAmount = 530;
         const maxScroll = container.scrollWidth - container.clientWidth;
+        
+        // Hide swipe hints after first interaction
+        document.getElementById('carousel-container').classList.add('swipe-hints-hidden');
         
         if (direction === 'left') {
             if (container.scrollLeft <= 10) {
@@ -996,7 +1369,119 @@
                 container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
             }
         }
+        
+        updateScrollDots();
     }
+
+    // Initialize scroll dots
+    function initScrollDots() {
+        const container = document.getElementById('project-slider');
+        const dotsContainer = document.getElementById('scroll-dots');
+        const projectCards = container.querySelectorAll('.project-card');
+        
+        // Create dots
+        dotsContainer.innerHTML = '';
+        projectCards.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'scroll-dot';
+            if (index === 0) dot.classList.add('active');
+            dotsContainer.appendChild(dot);
+        });
+        
+        // Update dots on scroll
+        container.addEventListener('scroll', updateScrollDots);
+    }
+
+    function updateScrollDots() {
+        const container = document.getElementById('project-slider');
+        const dots = document.querySelectorAll('.scroll-dot');
+        const scrollPosition = container.scrollLeft;
+        const cardWidth = 530; // approximate card width + gap
+        const currentIndex = Math.round(scrollPosition / cardWidth);
+        
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    // Initialize individual project card carousels
+    function initProjectCarousels() {
+        document.querySelectorAll('.project-card').forEach(card => {
+            const carouselContainer = card.querySelector('.carousel-container');
+            if (!carouselContainer) return;
+            
+            const imagesContainer = carouselContainer.querySelector('.carousel-images');
+            const images = imagesContainer.querySelectorAll('img');
+            const prevBtn = carouselContainer.querySelector('.carousel-btn.prev');
+            const nextBtn = carouselContainer.querySelector('.carousel-btn.next');
+            const dotsContainer = carouselContainer.querySelector('.carousel-dots');
+            const dots = dotsContainer.querySelectorAll('.carousel-dot');
+            
+            let currentIndex = 0;
+            const totalImages = images.length;
+            
+            function updateCarousel() {
+                imagesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+            
+            prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+                updateCarousel();
+            });
+            
+            nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                currentIndex = (currentIndex + 1) % totalImages;
+                updateCarousel();
+            });
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    currentIndex = index;
+                    updateCarousel();
+                });
+            });
+        });
+    }
+
+    // Hide hints on touch/scroll
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('project-slider');
+        const carouselContainer = document.getElementById('carousel-container');
+        
+        initScrollDots();
+        initProjectCarousels();
+        
+        let hasInteracted = false;
+        
+        container.addEventListener('touchstart', () => {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                carouselContainer.classList.add('swipe-hints-hidden');
+            }
+        });
+        
+        container.addEventListener('scroll', () => {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                carouselContainer.classList.add('swipe-hints-hidden');
+            }
+            updateScrollDots();
+        });
+        
+        // Auto-hide hints after 5 seconds
+        setTimeout(() => {
+            carouselContainer.classList.add('swipe-hints-hidden');
+        }, 5000);
+    });
 
     // Cursor heart trail effect
     let lastTrailTime = 0;
