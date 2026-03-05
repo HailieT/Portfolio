@@ -40,6 +40,24 @@
             background-color: #2d2d44 !important;
         }
 
+        /* Mobile menu dark mode */
+        body.dark-mode #mobile-menu {
+            background-color: #2d2d44 !important;
+            border-color: #4a1942 !important;
+        }
+
+        body.dark-mode #mobile-menu a {
+            color: #f48fb1 !important;
+        }
+
+        body.dark-mode #mobile-menu a:hover {
+            background-color: #3d3d5c !important;
+        }
+
+        body.dark-mode #mobile-menu button {
+            color: #f48fb1 !important;
+        }
+
         /* Active page indicator */
         .nav-link {
             position: relative;
@@ -91,11 +109,28 @@
                 <a href="Projects.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Projects</a>
                 <a href="3DModels.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">3D Models</a>
                 <a href="Testimonials.html" class="nav-link active text-pink-400 hover:text-rose-700 transition duration-300">Testimonials</a>
-                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-pink-100 transition" aria-label="Toggle dark mode">
+                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-pink-100 transition" aria-label="Toggle dark mode" tabindex="0">
                     🌙
                 </button>
             </div>
+            <button id="mobile-menu-button" class="md:hidden flex items-center p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
         </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <a href="index.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">About</a>
+            <a href="Experience.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">Experience</a>
+            <a href="Projects.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">Projects</a>
+            <a href="3DModels.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">3D Models</a>
+            <a href="Testimonials.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400 font-bold">Testimonials</a>
+            <div class="py-3 px-6 border-t">
+                <button id="dark-mode-toggle-mobile" class="w-full text-left text-pink-400 hover:text-rose-700 transition duration-300 flex items-center gap-2" aria-label="Toggle dark mode">
+                    <span id="dark-mode-icon-mobile">🌙</span>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
+        </div>
     </header>
 
     <main class="py-12">
@@ -182,26 +217,46 @@
     </footer>
 
     <script>
-        // Dark mode toggle
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        const body = document.body;
-        
-        // Check for saved dark mode preference
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            body.classList.add('dark-mode');
-            darkModeToggle.textContent = '☀️';
-        }
-        
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-                darkModeToggle.textContent = '☀️';
-            } else {
-                localStorage.setItem('darkMode', 'disabled');
-                darkModeToggle.textContent = '🌙';
-            }
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+    <script src="common.js"></script>
+    <script>
+        // Sync mobile dark mode toggle with desktop
+        const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+        const darkModeIconMobile = document.getElementById('dark-mode-icon-mobile');
+        
+        if (darkModeToggleMobile) {
+            // Set initial state
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeIconMobile.textContent = '☀️';
+            }
+            
+            darkModeToggleMobile.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                    darkModeIconMobile.textContent = '☀️';
+                    document.getElementById('dark-mode-toggle').textContent = '☀️';
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                    darkModeIconMobile.textContent = '🌙';
+                    document.getElementById('dark-mode-toggle').textContent = '🌙';
+                }
+            });
+        }
     </script>
 </body>
 </html>

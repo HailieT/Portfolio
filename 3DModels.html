@@ -58,6 +58,24 @@
             background-color: #2d2d44 !important;
         }
 
+        /* Mobile menu dark mode */
+        body.dark-mode #mobile-menu {
+            background-color: #2d2d44 !important;
+            border-color: #4a1942 !important;
+        }
+
+        body.dark-mode #mobile-menu a {
+            color: #f48fb1 !important;
+        }
+
+        body.dark-mode #mobile-menu a:hover {
+            background-color: #3d3d5c !important;
+        }
+
+        body.dark-mode #mobile-menu button {
+            color: #f48fb1 !important;
+        }
+
         /* Active page indicator */
         .nav-link {
             position: relative;
@@ -251,11 +269,17 @@
             </button>
         </nav>
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <a href="index.html" class="block py-3 px-6 text-pink-400">About</a>
-            <a href="Experience.html" class="block py-3 px-6 text-pink-400">Experience</a>
-            <a href="Projects.html" class="block py-3 px-6 text-pink-400">Projects</a>
-            <a href="3DModels.html" class="block py-3 px-6 text-pink-400 font-bold">3D Models</a>
-            <a href="Testimonials.html" class="block py-3 px-6 text-pink-400">Testimonials</a>
+            <a href="index.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">About</a>
+            <a href="Experience.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">Experience</a>
+            <a href="Projects.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">Projects</a>
+            <a href="3DModels.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400 font-bold">3D Models</a>
+            <a href="Testimonials.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">Testimonials</a>
+            <div class="py-3 px-6 border-t">
+                <button id="dark-mode-toggle-mobile" class="w-full text-left text-pink-400 hover:text-rose-700 transition duration-300 flex items-center gap-2" aria-label="Toggle dark mode">
+                    <span id="dark-mode-icon-mobile">🌙</span>
+                    <span>Dark Mode</span>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -472,6 +496,31 @@
     </script>
 
     <script src="common.js"></script>
+    <script>
+        // Sync mobile dark mode toggle with desktop
+        const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+        const darkModeIconMobile = document.getElementById('dark-mode-icon-mobile');
+        
+        if (darkModeToggleMobile) {
+            // Set initial state
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeIconMobile.textContent = '☀️';
+            }
+            
+            darkModeToggleMobile.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                    darkModeIconMobile.textContent = '☀️';
+                    document.getElementById('dark-mode-toggle').textContent = '☀️';
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                    darkModeIconMobile.textContent = '🌙';
+                    document.getElementById('dark-mode-toggle').textContent = '🌙';
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
