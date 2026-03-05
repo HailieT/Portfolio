@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - Hailie Tucker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        body {
+            font-family: 'Gamja Flower', cursive;
+            margin-left: 10%;
+            margin-right: 10%;
+            font-size: 25px;
+            position: relative;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode #bg-video {
+            opacity: 0;
+        }
+
+        body.dark-mode .bg-white {
+            background-color: #2d2d44 !important;
+        }
+
+        body.dark-mode .text-pink-400 {
+            color: #f48fb1 !important;
+        }
+
+        body.dark-mode header {
+            background-color: #2d2d44 !important;
+        }
+
+        /* Active page indicator */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .nav-link.active {
+            text-shadow: 0 0 10px rgba(251, 146, 60, 0.8), 0 0 20px rgba(251, 146, 60, 0.6);
+            color: #fb923c;
+        }
+
+        /* Focus indicators */
+        a:focus, button:focus {
+            outline: 3px solid #fb923c;
+            outline-offset: 2px;
+        }
+
+        /* Testimonial card styles */
+        .testimonial-card {
+            transition: all 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="text-pink-800">
+    <video autoplay muted loop playsinline id="bg-video"
+           style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+        <source src="Pink_Blue_Background.mp4" type="video/mp4">
+    </video>
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
+            <a href="index.html"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">About</a>
+                <a href="Experience.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
+                <a href="Projects.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Projects</a>
+                <a href="3DModels.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">3D Models</a>
+                <a href="Testimonials.html" class="nav-link active text-pink-400 hover:text-rose-700 transition duration-300">Testimonials</a>
+                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-pink-100 transition" aria-label="Toggle dark mode">
+                    🌙
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="py-12">
+        <div class="container mx-auto px-6">
+            <h1 class="text-5xl font-bold text-center mb-4 gradient-text">Testimonials & Recommendations</h1>
+            <p class="text-center text-pink-400 mb-12 max-w-2xl mx-auto">
+                Kind words from professors, teammates, and collaborators I've had the pleasure of working with.
+            </p>
+
+            <div class="max-w-4xl mx-auto space-y-8">
+                <!-- Testimonial 1 - Alan Villarreal -->
+                <div class="testimonial-card bg-white rounded-lg shadow-lg p-8" style="box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);">
+                    <div class="flex items-start gap-4">
+                        <img src="Alan_V.jfif" alt="Alan Villarreal" class="w-16 h-16 rounded-full object-cover">
+                        <div class="flex-1">
+                            <p class="text-pink-400 italic mb-4">
+                                "Hailie is smart enough to know exactly when to play dumb"
+                            </p>
+                            <div>
+                                <a href="https://www.linkedin.com/in/av-z/" target="_blank" rel="noopener noreferrer" class="font-bold text-pink-600 hover:text-pink-700 hover:underline">Alan Villarreal</a>
+                                <p class="text-sm text-pink-500">Teammate, AI Maker Challenge</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 - Alan Bernal -->
+                <div class="testimonial-card bg-white rounded-lg shadow-lg p-8" style="box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);">
+                    <div class="flex items-start gap-4">
+                        <img src="Alan_B.jfif" alt="Alan Bernal" class="w-16 h-16 rounded-full object-cover">
+                        <div class="flex-1">
+                            <p class="text-pink-400 italic mb-4">
+                                "Working with Hailie is fantastic; her effective communication and actions demonstrate commitment and dedication to her work."
+                            </p>
+                            <div>
+                                <a href="https://alanbernal.com" target="_blank" rel="noopener noreferrer" class="font-bold text-pink-600 hover:text-pink-700 hover:underline">Alan Bernal</a>
+                                <p class="text-sm text-pink-500">Teammate, AI Maker Challenge</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 - Katya Serechenko -->
+                <div class="testimonial-card bg-white rounded-lg shadow-lg p-8" style="box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);">
+                    <div class="flex items-start gap-4">
+                        <img src="Katya_S.jfif" alt="Katya Serechenko" class="w-16 h-16 rounded-full object-cover">
+                        <div class="flex-1">
+                            <p class="text-pink-400 italic mb-4">
+                                "It's always a pleasure to collaborate with Hailie. She's dedicated to her craft, whilst staying open to new ideas. If there's one thing to know about Hailie, it's that she always gives great advice, both professionally and personally. If you have a dilemma, trust me, she is THE person to go to."
+                            </p>
+                            <div>
+                                <a href="https://kittyyykattt.github.io" target="_blank" rel="noopener noreferrer" class="font-bold text-pink-600 hover:text-pink-700 hover:underline">Katya Serechenko</a>
+                                <p class="text-sm text-pink-500">Collaborator, Big Event Website</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 - Wilson Shi -->
+                <div class="testimonial-card bg-white rounded-lg shadow-lg p-8" style="box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);">
+                    <div class="flex items-start gap-4">
+                        <img src="Wilson_S.jfif" alt="Wilson Shi" class="w-16 h-16 rounded-full object-cover">
+                        <div class="flex-1">
+                            <p class="text-pink-400 italic mb-4">
+                                "Hailie is a rebel"
+                            </p>
+                            <div>
+                                <a href="https://linkedin.com/in/wshi9" target="_blank" rel="noopener noreferrer" class="font-bold text-pink-600 hover:text-pink-700 hover:underline">Wilson Shi</a>
+                                <p class="text-sm text-pink-500">Teammate, AI Maker Challenge</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more testimonials as needed -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-rose-800 text-white py-4 mt-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2026 Hailie Tucker. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                darkModeToggle.textContent = '☀️';
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+                darkModeToggle.textContent = '🌙';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -20,7 +20,52 @@
             background-repeat: no-repeat;
             position: relative;
             min-height: 100vh;
-            
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode #bg-video {
+            opacity: 0;
+        }
+
+        body.dark-mode .bg-white {
+            background-color: #2d2d44 !important;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .text-pink-400,
+        body.dark-mode .text-pink-800 {
+            color: #f48fb1 !important;
+        }
+
+        body.dark-mode header {
+            background-color: #2d2d44 !important;
+        }
+
+        body.dark-mode footer {
+            background-color: #4a1942 !important;
+        }
+
+        /* Active page indicator */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .nav-link.active {
+            text-shadow: 0 0 10px rgba(251, 146, 60, 0.8), 0 0 20px rgba(251, 146, 60, 0.6);
+            color: #fb923c !important;
+        }
+
+        /* Focus indicators */
+        a:focus, button:focus, input:focus {
+            outline: 3px solid #fb923c;
+            outline-offset: 2px;
         }
 
         /* Desktop only: use fixed background */
@@ -295,12 +340,16 @@
     <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
 
-            <a href="#home"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="text-pink-400 hover:text-rose-700 transition duration-300">About</a>
-                <a href="Experience.html" class="text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
-                <a href="Projects.html" class="text-pink-400 hover:text-rose-700 transition duration-300">Projects</a>
-                <a href="3DModels.html" class="text-pink-400 hover:text-rose-700 transition duration-300">3DModels</a>
+            <a href="index.html"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">About</a>
+                <a href="Experience.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
+                <a href="Projects.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Projects</a>
+                <a href="3DModels.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">3D Models</a>
+                <a href="Testimonials.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Testimonials</a>
+                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-pink-100 transition" aria-label="Toggle dark mode" tabindex="0">
+                    🌙
+                </button>
             </div>
             <button id="mobile-menu-button" class="md:hidden flex items-center p-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -308,10 +357,11 @@
         </nav>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <a href="#about" class="block py-3 px-6 text-sm hover:bg-gray-100">About</a>
-            <a href="#Experience.html" class="block py-3 px-6 text-sm hover:bg-gray-100">Experience</a>
+            <a href="index.html" class="block py-3 px-6 text-sm hover:bg-gray-100">About</a>
+            <a href="Experience.html" class="block py-3 px-6 text-sm hover:bg-gray-100">Experience</a>
             <a href="Projects.html" class="block py-3 px-6 text-sm hover:bg-gray-100">Projects</a>
-            <a href="3DModels.html" class="block py-3 px-6 text-sm hover:bg-gray-100">3DModels</a>
+            <a href="3DModels.html" class="block py-3 px-6 text-sm hover:bg-gray-100">3D Models</a>
+            <a href="Testimonials.html" class="block py-3 px-6 text-sm hover:bg-gray-100">Testimonials</a>
         </div>
     </header>
 
@@ -482,7 +532,7 @@
     <!-- Footer -->
     <footer class="bg-rose-800 text-white py-4">
         <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 Hailie Tucker. All Rights Reserved.</p>
+            <p>&copy; 2026 Hailie Tucker. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -521,6 +571,7 @@
             }
         });
     </script>
+    <script src="common.js"></script>
 
 </body>
 </html>

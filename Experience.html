@@ -21,6 +21,46 @@
             background-repeat: no-repeat;
             position: relative;
             min-height: 100vh;
+            color: #831843;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode #bg-video {
+            opacity: 0;
+        }
+
+        body.dark-mode .bg-white {
+            background-color: #2d2d44 !important;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .text-pink-400,
+        body.dark-mode .text-pink-700,
+        body.dark-mode .text-pink-800 {
+            color: #f48fb1 !important;
+        }
+
+        body.dark-mode header {
+            background-color: #2d2d44 !important;
+        }
+
+        body.dark-mode footer {
+            background-color: #4a1942 !important;
+        }
+
+        body.dark-mode .model-card {
+            background-color: #2d2d44 !important;
+        }
+
+        body.dark-mode .skill-badge {
+            background-color: #4a1942 !important;
+            color: #f48fb1 !important;
         }
 
         /* Desktop only: use fixed background */
@@ -243,6 +283,53 @@
             min-width: fit-content;
         }
 
+        /* Active page indicator */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .nav-link.active {
+            text-shadow: 0 0 10px rgba(251, 146, 60, 0.8), 0 0 20px rgba(251, 146, 60, 0.6);
+            color: #fb923c !important;
+        }
+
+        /* Focus indicators */
+        a:focus, button:focus {
+            outline: 3px solid #fb923c;
+            outline-offset: 2px;
+        }
+
+        /* Interactive timeline */
+        .timeline-item {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(5px);
+        }
+
+        .timeline-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .timeline-details.expanded {
+            max-height: 500px;
+        }
+
+        /* Awards section */
+        .award-card {
+            transition: all 0.3s;
+        }
+
+        .award-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
+        }
+
     </style>
 </head>
 <body class="text-pink-800">
@@ -310,13 +397,16 @@
     <!-- Header & Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
-
-            <a href="#home"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
-            <div class="hidden md:flex space-x-8">
-                <a href="index.html" class="text-pink-400 hover:text-rose-700 transition duration-300">About</a>
-                <a href="Experience.html" class="text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
-                <a href="Projects.html" class="text-pink-400 hover:text-rose-700 transition duration-300">Projects</a>
-                <a href="3DModels.html" class="text-pink-400 hover:text-rose-700 transition duration-300">3DModels</a>
+            <a href="index.html"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="index.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">About</a>
+                <a href="Experience.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
+                <a href="Projects.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Projects</a>
+                <a href="3DModels.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">3D Models</a>
+                <a href="Testimonials.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Testimonials</a>
+                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-pink-100 transition" aria-label="Toggle dark mode" tabindex="0">
+                    🌙
+                </button>
             </div>
             <button id="mobile-menu-button" class="md:hidden flex items-center p-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -325,9 +415,10 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
             <a href="index.html" class="block py-3 px-6 text-sm hover:bg-gray-100">About</a>
-            <a href="Experience.html" class="block py-3 px-6 text-sm hover:bg-gray-100">Experience</a>
+            <a href="Experience.html" class="block py-3 px-6 text-sm hover:bg-gray-100 font-bold">Experience</a>
             <a href="Projects.html" class="block py-3 px-6 text-sm hover:bg-gray-100">Projects</a>
-            <a href="3DModels.html" class="block py-3 px-6 text-sm hover:bg-gray-100">3DModels</a>
+            <a href="3DModels.html" class="block py-3 px-6 text-sm hover:bg-gray-100">3D Models</a>
+            <a href="Testimonials.html" class="block py-3 px-6 text-sm hover:bg-gray-100">Testimonials</a>
         </div>
     </header>
 
@@ -366,49 +457,160 @@
                 </div>
                 <div class="max-w-5xl mx-auto">
                     <!-- Timeline Item 1 - FSU ITS Intern (Spring 2026) -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
+                    <div class="timeline-item model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current" data-timeline-id="1">
                         <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
                             <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-28 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Spring 2026 Semester</time>
                             <a href="https://its.fsu.edu/" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">FSU ITS &rarr;</a>
                         </div>
                         <div class="text-pink-800">Emerging Technology Intern</div>
-                        <div class="text-med text-pink-400 mt-1"> I will be working as the Emerging Technology Intern (Working on VR) for Florida State Universitys Information Technology Services under Derek Kooi.</div>
+                        <div class="timeline-details">
+                            <div class="text-med text-pink-400 mt-1">I will be working as the Emerging Technology Intern (Working on VR) for Florida State Universitys Information Technology Services under Derek Kooi.</div>
+                            <div class="mt-2 text-pink-700">
+                                <strong>Responsibilities:</strong>
+                                <ul class="list-disc list-inside ml-4 text-pink-400">
+                                    <li>VR development and testing</li>
+                                    <li>Emerging technology research</li>
+                                    <li>Collaboration with ITS team</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <!-- Timeline Item 2 - DevLUp Social Chair (Fall 2025) -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
+                    <div class="timeline-item model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current" data-timeline-id="2">
                         <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
                             <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-28 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Fall 2025 - Present</time>
                             <a href="https://fsu.devlup.org/" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">DevLUp &rarr;</a>
                         </div>
                         <div class="text-pink-800">DevLUp Social Chair</div>
-                        <div class="text-med text-pink-400 mt-1"> Created a LinkedIn, and now control the instagram. My main goal is to spread awareness of the club and get new members. So far I have already orchastrated a collab with WiCS (Women in Computer Science) which is a group that falls under the FSU chapter of ACM.</div>
+                        <div class="timeline-details">
+                            <div class="text-med text-pink-400 mt-1">Created a LinkedIn, and now control the instagram. My main goal is to spread awareness of the club and get new members. So far I have already orchastrated a collab with WiCS (Women in Computer Science) which is a group that falls under the FSU chapter of ACM.</div>
+                            <div class="mt-2 text-pink-700">
+                                <strong>Achievements:</strong>
+                                <ul class="list-disc list-inside ml-4 text-pink-400">
+                                    <li>Created and manage LinkedIn presence</li>
+                                    <li>Manage Instagram account</li>
+                                    <li>Organized collaboration with WiCS</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <!-- Timeline Item 3 - Arcvale Intern (Summer 2025) -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
+                    <div class="timeline-item model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current" data-timeline-id="3">
                         <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
                             <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-28 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Summer 2025 - Present  </time>
                             <a href="https://arcvale.com/" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">Arcvale &rarr;</a>
                         </div>
                         <div class="text-pink-800">Arcvale Intern</div>
-                        <div class="text-med text-pink-400 mt-1"> Worked on UI modifications and minor bug fixes. Collaborated with a team of developers in an agile environment.</div>
+                        <div class="timeline-details">
+                            <div class="text-med text-pink-400 mt-1">Worked on UI modifications and minor bug fixes. Collaborated with a team of developers in an agile environment.</div>
+                            <div class="mt-2 text-pink-700">
+                                <strong>Skills Used:</strong>
+                                <ul class="list-disc list-inside ml-4 text-pink-400">
+                                    <li>UI/UX development</li>
+                                    <li>Bug fixing and testing</li>
+                                    <li>Agile methodology</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <!-- Timeline Item 4 - Desk Assistant (Summer 2024) -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
+                    <div class="timeline-item model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current" data-timeline-id="4">
                         <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
                             <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase min-w-fit px-4 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Summer 2024 - Present  </time>
                             <a href="https://housing.fsu.edu/future-residents/living-on-campus/residence-life-staff" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">Desk Assistant &rarr;</a>
                         </div>
                         <div class="text-pink-800">Desk Assistant at Florida State University </div>
-                        <div class="text-med text-pink-400 mt-1">Worked with a team to cover an assigned hub desk 24 hours a day.</div>
+                        <div class="timeline-details">
+                            <div class="text-med text-pink-400 mt-1">Worked with a team to cover an assigned hub desk 24 hours a day.</div>
+                            <div class="mt-2 text-pink-700">
+                                <strong>Responsibilities:</strong>
+                                <ul class="list-disc list-inside ml-4 text-pink-400">
+                                    <li>24/7 desk coverage coordination</li>
+                                    <li>Student assistance and support</li>
+                                    <li>Team collaboration</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <!-- Timeline Item 5 - FSU Education (Fall 2023) -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
+                    <div class="timeline-item model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current" data-timeline-id="5">
                         <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
                             <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase min-w-fit px-4 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Fall 2023 - Present  </time>
                             <a href="https://www.fsu.edu/" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">Florida State University &rarr;</a>
                         </div>
                         <div class="text-pink-800">B.S. in Computer Science</div>
-                        <div class="text-med text-pink-400 mt-1">Relevant Coursework: Computer org 1, VR development, data structures and algoriths 2</div>
+                        <div class="timeline-details">
+                            <div class="text-med text-pink-400 mt-1">Relevant Coursework: Computer org 1, VR development, data structures and algoriths 2</div>
+                            <div class="mt-2 text-pink-700">
+                                <strong>Focus Areas:</strong>
+                                <ul class="list-disc list-inside ml-4 text-pink-400">
+                                    <li>Computer Organization</li>
+                                    <li>Virtual Reality Development</li>
+                                    <li>Data Structures & Algorithms</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+
+        <!-- Awards & Certificates Section -->
+        <section id="awards">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold gradient-text">Awards & Certificates</h2>
+                    <p class="text-pink-400 mt-2">Recognition and achievements</p>
+                </div>
+                <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Award 1 -->
+                    <div class="award-card bg-white rounded-lg p-6 shadow-lg">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">🏆</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-pink-700">AI Maker Challenge - 2nd Place</h3>
+                                <p class="text-pink-400 text-sm">March 2026</p>
+                                <p class="text-pink-800 mt-2">Awarded $2,500 in AWS credits for placing 2nd with team Netrunners</p>
+                                <a href="https://fsuaimakerchallenge.create.fsu.edu" class="text-rose-600 font-semibold hover:underline mt-2 inline-block" target="_blank" rel="noopener noreferrer">View Challenge &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Award 2 -->
+                    <div class="award-card bg-white rounded-lg p-6 shadow-lg">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">🎓</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-pink-700">Faculty Research Awards - 2nd Place</h3>
+                                <p class="text-pink-400 text-sm">March 2026</p>
+                                <p class="text-pink-800 mt-2">Presented AI Maker Challenge project at Faculty Research Awards Ceremony</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Award 3 -->
+                    <div class="award-card bg-white rounded-lg p-6 shadow-lg">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">🎮</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-pink-700">DevLUp Horror Jam Participant</h3>
+                                <p class="text-pink-400 text-sm">October 17-19, 2025</p>
+                                <p class="text-pink-800 mt-2">Created "Spider Sol" during DevLUp Horror Jam 2025</p>
+                                <a href="https://itch.io/jam/devilup-horror-jam-25" class="text-rose-600 font-semibold hover:underline mt-2 inline-block" target="_blank" rel="noopener noreferrer">View Jam &rarr;</a> <br />
+                                <a href="https://jdevo.itch.io/spidersol" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">Play Game &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Award 4 -->
+                    <div class="award-card bg-white rounded-lg p-6 shadow-lg">
+                        <div class="flex items-start gap-4">
+                            <div class="text-4xl">🏛️</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-pink-700">ITS Seminole Showcase</h3>
+                                <p class="text-pink-400 text-sm">April 2026</p>
+                                <p class="text-pink-800 mt-2">Selected to present at Florida State Capitol Building</p>
+                                <a href="https://its.fsu.edu/its-seminole-showcase" class="text-rose-600 font-semibold hover:underline mt-2 inline-block" target="_blank" rel="noopener noreferrer">View Showcase &rarr;</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -451,7 +653,7 @@
     <!-- Footer -->
     <footer class="bg-rose-800 text-white py-4">
         <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 Hailie Tucker. All Rights Reserved.</p>
+            <p>&copy; 2026 Hailie Tucker. All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -489,7 +691,34 @@
                 }, 1000);
             }
         });
+
+        // Interactive timeline - click to expand/collapse
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            const details = item.querySelector('.timeline-details');
+            
+            // Start with details expanded
+            details.classList.add('expanded');
+            
+            // Toggle on click
+            item.addEventListener('click', (e) => {
+                // Don't toggle if clicking on a link
+                if (e.target.tagName === 'A') return;
+                
+                details.classList.toggle('expanded');
+            });
+
+            // Keyboard accessibility
+            item.setAttribute('tabindex', '0');
+            item.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    details.classList.toggle('expanded');
+                }
+            });
+        });
     </script>
+
+    <script src="common.js"></script>
 
 </body>
 </html>
