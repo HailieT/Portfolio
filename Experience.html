@@ -157,6 +157,92 @@
             height: 23px;
         }
 
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Skill badge bounce on hover */
+        .skill-badge {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+        }
+
+        .skill-badge:hover {
+            animation: bounce 0.6s ease;
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 30px rgba(251, 146, 60, 0.4);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Timeline glow for current positions */
+        .timeline-current::after {
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 10px #ec4899, 0 0 20px #ec4899;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 10px #ec4899, 0 0 20px #ec4899;
+            }
+            50% {
+                box-shadow: 0 0 20px #ec4899, 0 0 30px #fb923c;
+            }
+        }
+
+        /* Cursor trail hearts */
+        .cursor-heart {
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            width: 12px;
+            height: 12px;
+            animation: cursorHeartFloat 1s ease-out forwards;
+        }
+
+        .cursor-heart svg {
+            width: 100%;
+            height: 100%;
+            fill: #ec4899;
+        }
+
+        @keyframes cursorHeartFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.5);
+            }
+        }
+
+        /* Smooth page transitions */
+        body {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Fix header and footer width on horizontal scroll */
+        header, footer {
+            width: 100%;
+            min-width: fit-content;
+        }
+
     </style>
 </head>
 <body class="text-pink-800">
@@ -223,9 +309,9 @@
 
     <!-- Header & Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
 
-            <a href="#home"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-20 w-auto"> </a>
+            <a href="#home"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="text-pink-400 hover:text-rose-700 transition duration-300">About</a>
                 <a href="Experience.html" class="text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
@@ -255,14 +341,14 @@
                     <div class="max-w-2xl mx-auto grid gap-12 items-center">
 
                         <div>
-                            <h3 class="text-2xl text-center font-semibold mb-4">My Skills</h3>
+                            <h3 class="text-2xl text-center font-semibold mb-4 gradient-text">My Skills</h3>
                             <div class="flex flex-wrap justify-center gap-3">
-                                <span class="hover:-translate-y-3 bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">C++</span>
-                                <span class="hover:-translate-y-3 bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">C#</span>
-                                <span class="hover:-translate-y-3 bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">HTML & CSS</span>
-                                <span class="hover:-translate-y-3 bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">Git & GitHub</span>
-                                <span class="hover:-translate-y-3 bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">Blender</span>
-                                <span class="hover:-translate-y-3 bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">Unity</span>
+                                <span class="skill-badge bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">C++</span>
+                                <span class="skill-badge bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">C#</span>
+                                <span class="skill-badge bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">HTML & CSS</span>
+                                <span class="skill-badge bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">Git & GitHub</span>
+                                <span class="skill-badge bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">Blender</span>
+                                <span class="skill-badge bg-rose-200 text-pink-700 font-medium text-center py-2 px-4 rounded-full">Unity</span>
                             </div>
                         </div>
                     </div>
@@ -279,50 +365,50 @@
                     <p class="text-pink-400 mt-2">longer term commitments</p>
                 </div>
                 <div class="max-w-5xl mx-auto">
-                    <!-- Timeline Item 1 -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group">
+                    <!-- Timeline Item 1 - FSU ITS Intern (Spring 2026) -->
+                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
                         <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                            <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase min-w-fit px-4 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Fall 2023 - Present  </time>
-                            <a href="https://www.fsu.edu/" class="text-xl text-pink-900 font-bold hover:underline" target="_blank" rel="noopener noreferrer">Florida State University &rarr;</a>
+                            <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-28 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Spring 2026 Semester</time>
+                            <a href="https://its.fsu.edu/" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">FSU ITS &rarr;</a>
                         </div>
-                        <div class="text-pink-800">B.S. in Computer Science</div>
-                        <div class="text-med text-pink-400 mt-1">Relevant Coursework: Computer org 1, VR development, data structures and algoriths 2</div>
+                        <div class="text-pink-800">Emerging Technology Intern</div>
+                        <div class="text-med text-pink-400 mt-1"> I will be working as the Emerging Technology Intern (Working on VR) for Florida State Universitys Information Technology Services under Derek Kooi.</div>
                     </div>
-                    <!-- Timeline Item 2 -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group">
-                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                            <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase min-w-fit px-4 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Summer 2024 - Present  </time>
-                            <a href="https://housing.fsu.edu/future-residents/living-on-campus/residence-life-staff" class="text-xl text-pink-900 font-bold hover:underline" target="_blank" rel="noopener noreferrer">Desk Assistant &rarr;</a>
-                        </div>
-                        <div class="text-pink-800">Desk Assistant at Florida State University </div>
-                        <div class="text-med text-pink-400 mt-1">Worked with a team to cover an assigned hub desk 24 hours a day.</div>
-                    </div>
-                    <!-- Timeline Item 3 -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group">
-                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                            <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-28 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Summer 2025 - Present  </time>
-                            <a href="https://arcvale.com/" class="text-xl text-pink-900 font-bold hover:underline" target="_blank" rel="noopener noreferrer">Arcvale &rarr;</a>
-                        </div>
-                        <div class="text-pink-800">Arcvale Intern</div>
-                        <div class="text-med text-pink-400 mt-1"> Worked on UI modifications and minor bug fixes. Collaborated with a team of developers in an agile environment.</div>
-                    </div>
-                    <!-- Timeline Item 4 -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group">
+                    <!-- Timeline Item 2 - DevLUp Social Chair (Fall 2025) -->
+                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
                         <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
                             <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-28 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Fall 2025 - Present</time>
-                            <a href="https://fsu.devlup.org/" class="text-xl text-pink-900 font-bold hover:underline" target="_blank" rel="noopener noreferrer">DevLUp &rarr;</a>
+                            <a href="https://fsu.devlup.org/" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">DevLUp &rarr;</a>
                         </div>
                         <div class="text-pink-800">DevLUp Social Chair</div>
                         <div class="text-med text-pink-400 mt-1"> Created a LinkedIn, and now control the instagram. My main goal is to spread awareness of the club and get new members. So far I have already orchastrated a collab with WiCS (Women in Computer Science) which is a group that falls under the FSU chapter of ACM.</div>
                     </div>
-                    <!-- Timeline Item 5 -->
-                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group">
+                    <!-- Timeline Item 3 - Arcvale Intern (Summer 2025) -->
+                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
                         <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
-                            <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-28 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Spring 2026 Semester</time>
-                            <a href="https://its.fsu.edu/" class="text-xl text-pink-900 font-bold hover:underline" target="_blank" rel="noopener noreferrer">FSU ITS &rarr;</a>
+                            <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase w-28 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Summer 2025 - Present  </time>
+                            <a href="https://arcvale.com/" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">Arcvale &rarr;</a>
                         </div>
-                        <div class="text-pink-800">Emerging Technology Intern</div>
-                        <div class="text-med text-pink-400 mt-1"> I will be working as the Emerging Technology Intern (Working on VR) for Florida State Universitys Information Technology Services under Derek Kooi.</div>
+                        <div class="text-pink-800">Arcvale Intern</div>
+                        <div class="text-med text-pink-400 mt-1"> Worked on UI modifications and minor bug fixes. Collaborated with a team of developers in an agile environment.</div>
+                    </div>
+                    <!-- Timeline Item 4 - Desk Assistant (Summer 2024) -->
+                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
+                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                            <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase min-w-fit px-4 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Summer 2024 - Present  </time>
+                            <a href="https://housing.fsu.edu/future-residents/living-on-campus/residence-life-staff" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">Desk Assistant &rarr;</a>
+                        </div>
+                        <div class="text-pink-800">Desk Assistant at Florida State University </div>
+                        <div class="text-med text-pink-400 mt-1">Worked with a team to cover an assigned hub desk 24 hours a day.</div>
+                    </div>
+                    <!-- Timeline Item 5 - FSU Education (Fall 2023) -->
+                    <div class="model-card reveal relative pl-8 sm:pl-48 py-6 group timeline-current">
+                        <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-pink-300 sm:before:ml-[10.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-pink-600 after:border-4 after:box-content after:border-pink-50 after:rounded-full sm:after:ml-[10.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                            <time class="sm:absolute left-0 translate-y-0.5 inline-flex items-center justify-center text-xs font-semibold uppercase min-w-fit px-4 h-6 mb-3 sm:mb-0 text-rose-600 bg-rose-200 rounded-full">Fall 2023 - Present  </time>
+                            <a href="https://www.fsu.edu/" class="text-xl font-bold hover:underline gradient-text" target="_blank" rel="noopener noreferrer">Florida State University &rarr;</a>
+                        </div>
+                        <div class="text-pink-800">B.S. in Computer Science</div>
+                        <div class="text-med text-pink-400 mt-1">Relevant Coursework: Computer org 1, VR development, data structures and algoriths 2</div>
                     </div>
                 </div>
             </div>
@@ -363,7 +449,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-rose-800 text-white py-6">
+    <footer class="bg-rose-800 text-white py-4">
         <div class="container mx-auto px-6 text-center">
             <p>&copy; 2025 Hailie Tucker. All Rights Reserved.</p>
         </div>
@@ -383,6 +469,25 @@
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
+        });
+
+        // Cursor heart trail effect
+        let lastTrailTime = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastTrailTime > 100) {
+                lastTrailTime = now;
+                const heart = document.createElement('div');
+                heart.className = 'cursor-heart';
+                heart.innerHTML = '<svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>';
+                heart.style.left = e.pageX + 'px';
+                heart.style.top = e.pageY + 'px';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000);
+            }
         });
     </script>
 

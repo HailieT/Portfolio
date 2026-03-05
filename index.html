@@ -158,6 +158,73 @@
             height: 23px;
         }
 
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Cursor trail hearts */
+        .cursor-heart {
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            width: 12px;
+            height: 12px;
+            animation: cursorHeartFloat 1s ease-out forwards;
+        }
+
+        .cursor-heart svg {
+            width: 100%;
+            height: 100%;
+            fill: #ec4899;
+        }
+
+        @keyframes cursorHeartFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.5);
+            }
+        }
+
+        /* Smooth page transitions */
+        body {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Radar Chart Styles */
+        .radar-chart {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .radar-chart svg {
+            filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.3));
+        }
+
+        /* Fix header and footer width on horizontal scroll */
+        header, footer {
+            width: 100%;
+            min-width: fit-content;
+        }
+
     </style>
 </head>
 <body class="text-pink-800">
@@ -226,9 +293,9 @@
 
     <!-- Header & Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
 
-            <a href="#home"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-20 w-auto"> </a>
+            <a href="#home"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
             <div class="hidden md:flex space-x-8">
                 <a href="#about" class="text-pink-400 hover:text-rose-700 transition duration-300">About</a>
                 <a href="Experience.html" class="text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
@@ -253,7 +320,7 @@
         <section id="home">
             <div class="container mx-auto px-6 py-20 md:py-32 flex flex-col md:flex-row items-center">
                 <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
-                    <h1 class=" model-card reveal text-4xl md:text-5xl font-bold text-pink-900 leading-tight mb-4"> Hailie Tucker</h1>
+                    <h1 class=" model-card reveal text-4xl md:text-5xl font-bold leading-tight mb-4 gradient-text"> Hailie Tucker</h1>
                     <p class="model-card reveal text-lg md:text-xl text-rose-600 font-semibold mb-6">Aspiring Game Developer & Computer Science Student</p>
                     <p class="model-card reveal text-pink-400 leading-relaxed mb-8 max-w-lg mx-auto md:mx-0">I'm passionate about connecting with new people and building fun projects! Welcome to my personal portfolio.</p>
                     <div class="model-card reveal flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -272,7 +339,7 @@
         <section id="about">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h2 class="model-card reveal text-3xl font-bold">About Me</h2>
+                    <h2 class="model-card reveal text-3xl font-bold gradient-text">About Me</h2>
                 </div>
                 <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div>
@@ -283,6 +350,95 @@
                         <p class="model-card reveal text-pink-400 leading-relaxed">
                             Outside of my academic pursuits, I enjoy contributing to <em>DevLUp</em> or <em>Arcvale</em> Projects, participating in social activities, and learning about game and web development.
                         </p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center; position: relative;">
+                        <div class="radar-chart" style="width: 600px; height: 600px; position: relative;">
+                            <h3 class="text-2xl font-semibold gradient-text" style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 10; margin: 0;">My Stats</h3>
+                            <svg viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Outer boundary circle (100%) - thicker -->
+                                <circle cx="350" cy="350" r="200" fill="none" stroke="#ec4899" stroke-width="4" opacity="0.8"/>
+                                
+                                <!-- Inner circular grid rings (25%, 50%, 75%) - orange -->
+                                <circle cx="350" cy="350" r="150" fill="none" stroke="#fb923c" stroke-width="3" opacity="0.7"/>
+                                <circle cx="350" cy="350" r="100" fill="none" stroke="#fb923c" stroke-width="3" opacity="0.7"/>
+                                <circle cx="350" cy="350" r="50" fill="none" stroke="#fb923c" stroke-width="3" opacity="0.7"/>
+                                
+                                <!-- Axis lines (8 directions) -->
+                                <line x1="350" y1="350" x2="350" y2="150" stroke="#fbcfe8" stroke-width="2" opacity="0.6"/>
+                                <line x1="350" y1="350" x2="491" y2="209" stroke="#fbcfe8" stroke-width="2" opacity="0.6"/>
+                                <line x1="350" y1="350" x2="550" y2="350" stroke="#fbcfe8" stroke-width="2" opacity="0.6"/>
+                                <line x1="350" y1="350" x2="491" y2="491" stroke="#fbcfe8" stroke-width="2" opacity="0.6"/>
+                                <line x1="350" y1="350" x2="350" y2="550" stroke="#fbcfe8" stroke-width="2" opacity="0.6"/>
+                                <line x1="350" y1="350" x2="209" y2="491" stroke="#fbcfe8" stroke-width="2" opacity="0.6"/>
+                                <line x1="350" y1="350" x2="150" y2="350" stroke="#fbcfe8" stroke-width="2" opacity="0.6"/>
+                                <line x1="350" y1="350" x2="209" y2="209" stroke="#fbcfe8" stroke-width="2" opacity="0.6"/>
+                                
+                                <!-- Data polygon (8 points positioned at specific rings)
+                                     Ring 1 (25%): 50px from center
+                                     Ring 2 (50%): 100px from center
+                                     Ring 3 (75%): 150px from center
+                                     Ring 4 (100%): 200px from center
+                                     
+                                     Sociability (90%): ~180px (close to ring 4)
+                                     Charisma (88%): ~150px (at ring 3)
+                                     Networking (85%): ~125px (between ring 2 and 3)
+                                     Determination (90%): ~150px (at ring 3)
+                                     Romance (25%): 50px (at ring 1)
+                                     Luck (85%): ~150px (near ring 3)
+                                     Strength (30%): ~75px (between ring 1 and 2)
+                                     Speed (35%): ~75px (between ring 1 and 2) 
+                                     
+                                     RESET: All points at ring 1 (50px from center) 
+                                     
+                                     Sociability (top): Between ring 3 and 4 (~175px from center)
+                                     Charisma (top-right): Between ring 2 and 3 (~125px from center)
+                                     Networking (right): At ring 3 (150px from center)
+                                     Luck (bottom): At ring 3 (150px from center)
+                                     Strength (bottom-left): 1/4 from ring 1, 3/4 to ring 2 (~62.5px from center)
+                                     Speed (left): Between ring 1 and 2 (~75px from center)
+                                     Determination (top-left): 1/4 from ring 3 to ring 4, 3/4 from ring 3 (~187.5px from center) -->
+                                <polygon points="350,175 438,262 500,350 385,385 350,500 306,394 275,350 215,215" 
+                                         fill="url(#radarGradient)" 
+                                         stroke="#ec4899" 
+                                         stroke-width="4" 
+                                         opacity="0.8"/>
+                                
+                                <!-- Gradient definition -->
+                                <defs>
+                                    <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ec4899;stop-opacity:0.7" />
+                                        <stop offset="100%" style="stop-color:#fb923c;stop-opacity:0.7" />
+                                    </linearGradient>
+                                    <filter id="glow">
+                                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                        <feMerge>
+                                            <feMergeNode in="coloredBlur"/>
+                                            <feMergeNode in="SourceGraphic"/>
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                
+                                <!-- Data points with glow -->
+                                <circle cx="350" cy="175" r="7" fill="#ec4899" filter="url(#glow)"/>
+                                <circle cx="438" cy="262" r="7" fill="#ec4899" filter="url(#glow)"/>
+                                <circle cx="500" cy="350" r="7" fill="#ec4899" filter="url(#glow)"/>
+                                <circle cx="385" cy="385" r="7" fill="#ec4899" filter="url(#glow)"/>
+                                <circle cx="350" cy="500" r="7" fill="#ec4899" filter="url(#glow)"/>
+                                <circle cx="306" cy="394" r="7" fill="#ec4899" filter="url(#glow)"/>
+                                <circle cx="275" cy="350" r="7" fill="#ec4899" filter="url(#glow)"/>
+                                <circle cx="215" cy="215" r="7" fill="#ec4899" filter="url(#glow)"/>
+                                
+                                <!-- Labels with more spacing to prevent cutoff -->
+                                <text x="350" y="120" text-anchor="middle" fill="#ec4899" font-size="22" font-weight="bold">Sociability</text>
+                                <text x="520" y="195" text-anchor="start" fill="#ec4899" font-size="22" font-weight="bold">Charisma</text>
+                                <text x="590" y="360" text-anchor="start" fill="#ec4899" font-size="22" font-weight="bold">Networking</text>
+                                <text x="520" y="470" text-anchor="start" fill="#ec4899" font-size="22" font-weight="bold">Romance</text>
+                                <text x="350" y="590" text-anchor="middle" fill="#ec4899" font-size="22" font-weight="bold">Luck</text>
+                                <text x="180" y="470" text-anchor="end" fill="#ec4899" font-size="22" font-weight="bold">Strength</text>
+                                <text x="110" y="360" text-anchor="end" fill="#ec4899" font-size="22" font-weight="bold">Speed</text>
+                                <text x="180" y="195" text-anchor="end" fill="#ec4899" font-size="22" font-weight="bold">Determination</text>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -324,7 +480,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-rose-800 text-white py-6">
+    <footer class="bg-rose-800 text-white py-4">
         <div class="container mx-auto px-6 text-center">
             <p>&copy; 2025 Hailie Tucker. All Rights Reserved.</p>
         </div>
@@ -344,6 +500,25 @@
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
+        });
+
+        // Cursor heart trail effect
+        let lastTrailTime = 0;
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+            if (now - lastTrailTime > 100) { // Create heart every 100ms
+                lastTrailTime = now;
+                const heart = document.createElement('div');
+                heart.className = 'cursor-heart';
+                heart.innerHTML = '<svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>';
+                heart.style.left = e.pageX + 'px';
+                heart.style.top = e.pageY + 'px';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 1000);
+            }
         });
     </script>
 

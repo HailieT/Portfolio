@@ -166,6 +166,206 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Project card glow effect */
+        .project-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card:hover {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 40px rgba(251, 146, 60, 0.4);
+            transform: translateY(-5px);
+        }
+
+        /* Cursor trail hearts */
+        .cursor-heart {
+            position: absolute;
+            pointer-events: none;
+            z-index: 9999;
+            width: 12px;
+            height: 12px;
+            animation: cursorHeartFloat 1s ease-out forwards;
+        }
+
+        .cursor-heart svg {
+            width: 100%;
+            height: 100%;
+            fill: #ec4899;
+        }
+
+        @keyframes cursorHeartFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.5);
+            }
+        }
+
+        /* Smooth page transitions */
+        body {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Image carousel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 192px;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .carousel-images img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(236, 72, 153, 0.8);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(236, 72, 153, 1);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: rgba(236, 72, 153, 1);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Highlight carousel specific styles */
+        .highlight-carousel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(to bottom, rgba(236, 72, 153, 0.3) 0%, transparent 20%, transparent 80%, rgba(251, 146, 60, 0.3) 100%);
+            display: flex;
+            align-items: center;
+        }
+
+        .highlight-carousel .carousel-images {
+            display: flex;
+            transition: transform 0.3s ease;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+        }
+
+        .highlight-carousel .carousel-images img {
+            min-width: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .highlight-carousel .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(236, 72, 153, 0.8);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            transition: all 0.3s;
+            font-size: 20px;
+        }
+
+        .highlight-carousel .carousel-btn:hover {
+            background: rgba(236, 72, 153, 1);
+        }
+
+        .highlight-carousel .carousel-prev {
+            left: 10px;
+        }
+
+        .highlight-carousel .carousel-next {
+            right: 10px;
+        }
+
+        .highlight-carousel .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        /* Fix header and footer width on horizontal scroll */
+        header, footer {
+            width: 100%;
+            min-width: fit-content;
+        }
     </style>
 </head>
 <body class="text-pink-800">
@@ -232,9 +432,9 @@
 
     <!-- Header & Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
 
-            <a href="#home"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-20 w-auto"> </a>
+            <a href="#home"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
             <div class="hidden md:flex space-x-8">
                 <a href="index.html" class="text-pink-400 hover:text-rose-700 transition duration-300">About</a>
                 <a href="Experience.html" class="text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
@@ -269,78 +469,264 @@
         <div id="project-slider" class="flex overflow-x-auto gap-8 py-8 px-4 snap-x snap-mandatory scroll-smooth no-scrollbar">
             
             
-                    <!-- Project Card 1 -->
-<div class="snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">                        <img src="IMG_7167_00.jpeg" alt="Project 1 Screenshot" class="w-full h-48 object-cover">
+                    <!-- Project Card 1 - Prawmite -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="IMG_7167_00.jpeg" alt="Prawmite Screenshot 1">
+                                <img src="IMG_7167_01.jpeg" alt="Prawmite Screenshot 2">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                                <span class="carousel-dot"></span>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Prawmite</h3>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Prawmite</h3>
                             <p class="text-pink-400 mb-4">Helping on a project thats been in development since 2019. Once released it will  be one of Arcvales biggest games ever!</p>
                             <a href="https://github.com/ArcvaleStudio/Prawmite" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
                         </div>
                     </div>
-                    <!-- Project Card 2 -->
-<div class="snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">                        <img src="IMG_7183_00.jpeg" alt="Project 2 Screenshot" class="w-full h-48 object-cover">
+                    <!-- Project Card 2 - Orbital Odyssey -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="IMG_7183_00.jpeg" alt="Orbital Odyssey Screenshot 1">
+                                <img src="IMG_7183_01.jpeg" alt="Orbital Odyssey Screenshot 2">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                                <span class="carousel-dot"></span>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Orbital Odyssey</h3>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Orbital Odyssey</h3>
                             <p class="text-pink-400 mb-4">My first ever DevLUp Project! I mainly did small 3d blender assets for this.</p>
                             <a href="https://github.com/devlup-fsu/party-game" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
                         </div>
                     </div>
-                    <!-- Project Card 3 -->
-<div class="snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">                        <img src="IMG_7263_00.jpeg" alt="Project 3 Screenshot" class="w-full h-48 object-cover">
+                    <!-- Project Card 3 - Dawn of Dion -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="IMG_7263_00.jpeg" alt="Dawn of Dion Screenshot 1">
+                                <img src="IMG_7263_01.jpeg" alt="Dawn of Dion Screenshot 2">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                                <span class="carousel-dot"></span>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Dawn of Dion</h3>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Dawn of Dion</h3>
                             <p class="text-pink-400 mb-4">The new 2025-2026 DevLUp Game in which I will play a larger role with coding and git management.</p>
                             <a href="https://github.com/jake0822/DevLUp-Project-2025-2026" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
                         </div>
                     </div>
-                    <!-- Project Card 4 -->
-<div class="snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">                        <img src="ViverseScreenshot.png" alt="Project 4 Screenshot" class="w-full h-48 object-cover">
+                    <!-- Project Card 4 - Viverse -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="ViverseScreenshot.png" alt="Viverse Screenshot">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Viverse</h3>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Viverse</h3>
                             <p class="text-pink-400 mb-4">My VR submission to the Viverse college game creation competition.</p>
                             <a href="https://hailiet.itch.io/haven" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View online! &rarr;</a> <br />
                             <a href="https://github.com/HailieT/Viverse" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
                         </div>
                     </div>
-                    <!-- Project Card 5 -->
-<div class="snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">                        <img src="GameJam2025.jpg" alt="Project 5 picture" class="w-full h-48 object-cover">
+                    <!-- Project Card 5 - Game Jam -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="GameJam2025.jpg" alt="Game Jam Screenshot">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Game Jam</h3>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Game Jam</h3>
                             <p class="text-pink-400 mb-4">I participated with Jacksons team to make a spooky game to be uploaded in itch.</p>
                             <a href="https://jdevo.itch.io/spidersol" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View online! &rarr;</a> <br />
                             <a href="https://github.com/jdevo22/HalloweenGameJam2025" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View on GitHub &rarr;</a>
                         </div>
                     </div>
-                    <!-- Project Card 6 -->
-<div class="snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">                        <img src="DevLUpWebsite.png" alt="Project 6 picture" class="w-full h-48 object-cover">
+                    <!-- Project Card 6 - Club Website -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="DevLUpWebsite.png" alt="Club Website Screenshot">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Club Website</h3>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Club Website</h3>
                             <p class="text-pink-400 mb-4">I created a new website for my club.</p>
                             <a href="https://devlupfsu.netlify.app/" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View online! &rarr;</a> <br />
                             <a href="https://github.com/HailieT/DevLUp" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View on Github &rarr;</a>
                         </div>
                     </div>
-                    <!-- Project Card 7 -->
-<div class="snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">                        <img src="GameCover.png" alt="Project 7 picture" class="w-full h-48 object-cover">
+                    <!-- Project Card 7 - VR Pickleball -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="GameCover.png" alt="VR Pickleball Screenshot">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Vr Pickleball</h3>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Vr Pickleball</h3>
                             <p class="text-pink-400 mb-4">I created VR Pickleball for a class project</p>
                             <a href="https://hailiet.itch.io/vrpickleball" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View online! &rarr;</a> <br />
                             <a href="https://github.com/HailieT/hlt22cVR1FinalProject" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View on Github &rarr;</a>
                         </div>
                     </div>
-                    <!-- Project Card 8 -->
-<div class="snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">                        <img src="IceCreamTruck.png" alt="Project 8 picture" class="w-full h-48 object-cover">
+                    <!-- Project Card 8 - Ice Cream Truck Website -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="IceCreamTruck.png" alt="Ice Cream Truck Website Screenshot">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                            </div>
+                        </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Nakai's Icecream Truck Website</h3>
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Nakai's Icecream Truck Website</h3>
                             <p class="text-pink-400 mb-4">Working on a website for a small icecream buisness</p>
                             <a href="https://github.com/HailieT/IcecreamTruck" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View on Github &rarr;</a>
+                        </div>
+                    </div>
+                    <!-- Project Card 9 - Big Event Website -->
+<div class="project-card snap-center shrink-0 w-[85vw] md:w-[500px] bg-white rounded-lg overflow-hidden">
+                        <div class="carousel-container">
+                            <div class="carousel-images">
+                                <img src="BigEventPhoto.png" alt="Big Event Website Screenshot">
+                            </div>
+                            <button class="carousel-btn prev">‹</button>
+                            <button class="carousel-btn next">›</button>
+                            <div class="carousel-dots">
+                                <span class="carousel-dot active"></span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 gradient-text">Big Event Reveal Website</h3>
+                            <p class="text-pink-400 mb-4">Collaborated with Katya Serechenko to create a volunteer placement reveal website for 1200-1500 users from FSU, FAMU, and TCC. Launched February 18, 2026.</p>
+                            <a href="https://thebigevent.github.io/TBE2026/" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View Website &rarr;</a>
                         </div>
                     </div>
                 </div>
                 <button onclick="scrollCarousel('right')" class="hidden md:block absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/70 hover:bg-white text-pink-600 p-3 rounded-full shadow-lg transition-all backdrop-blur-sm">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </button>
+            </div>
+        </section>
+        <br />
+
+        <!-- Hailie Does Things Section -->
+        <section id="highlights">
+            <div class="container mx-auto px-6 py-12">
+                <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Hailie Does Things</h2>
+                
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- Highlight Post 1 - Big Event Website -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition duration-300" style="box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);">
+                        <div class="md:flex">
+                            <div class="md:w-1/2">
+                                <img src="BigEventPhoto.png" alt="Big Event Website Launch" class="w-full h-64 md:h-full object-cover">
+                            </div>
+                            <div class="md:w-1/2 p-6">
+                                <div class="text-sm text-pink-500 font-semibold mb-2">February 18, 2026</div>
+                                <h3 class="text-2xl font-bold mb-3 gradient-text">Big Event Website Launch</h3>
+                                <p class="text-pink-400 leading-relaxed mb-4">
+                                    Worked with <a href="https://kittyyykattt.github.io" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-rose-700 underline font-semibold">Katya Serechenko</a> to create the Big Event reveal website for 1200-1500 users to show their volunteer placement. Users were from <a href="https://www.fsu.edu" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-rose-700 underline">FSU</a>, <a href="https://www.famu.edu" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-rose-700 underline">FAMU</a>, and <a href="https://www.tcc.fl.edu" target="_blank" rel="noopener noreferrer" class="text-pink-600 hover:text-rose-700 underline">TCC</a>.
+                                </p>
+                                <a href="https://thebigevent.github.io/TBE2026/" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View Website &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Highlight Post 2 - AI Maker Challenge -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition duration-300" style="box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);">
+                        <div class="md:flex md:flex-row-reverse">
+                            <div class="md:w-1/2">
+                                <div class="highlight-carousel" style="min-height: 400px; height: 100%;">
+                                    <div class="carousel-images" style="height: 100%;">
+                                        <img src="AI-Maker-Challenge.jpg" alt="AI Maker Challenge Event">
+                                        <img src="AIMakerCertificate.png" alt="AI Maker Challenge Certificate">
+                                        <img src="RewardCeremonyScore.png" alt="Reward Ceremony Score">
+                                        <img src="RSP2.jpg" alt="Research Symposium Presentation">
+                                    </div>
+                                    <button class="carousel-btn carousel-prev" aria-label="Previous image">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                    </button>
+                                    <button class="carousel-btn carousel-next" aria-label="Next image">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    </button>
+                                    <div class="carousel-dots">
+                                        <span class="carousel-dot active"></span>
+                                        <span class="carousel-dot"></span>
+                                        <span class="carousel-dot"></span>
+                                        <span class="carousel-dot"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 p-6">
+                                <div class="text-sm text-pink-500 font-semibold mb-2">February 27 - March 3, 2026</div>
+                                <h3 class="text-2xl font-bold mb-3 gradient-text">AI Maker Challenge - 2nd Place</h3>
+                                <p class="text-pink-400 leading-relaxed mb-4">
+                                    My team Netrunners placed 2nd in the AI Maker Challenge (February 27 - March 1) hosted by Amazon Web Services and FSU, winning $2500 worth of AWS credits! We presented again at the Faculty Research Awards Ceremony on March 3rd and placed 2nd there as well.
+                                </p>
+                                <a href="https://fsuaimakerchallenge.create.fsu.edu" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View Challenge Info &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Highlight Post 3 - ITS Seminole Showcase -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition duration-300" style="box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);">
+                        <div class="md:flex">
+                            <div class="md:w-1/2">
+                                <div style="min-height: 400px; height: 100%; background: linear-gradient(to bottom, rgba(236, 72, 153, 0.3) 0%, transparent 20%, transparent 80%, rgba(251, 146, 60, 0.3) 100%); display: flex; align-items: center; justify-content: center;">
+                                    <img src="ShowcasePoster.png" alt="ITS Seminole Showcase Poster" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                </div>
+                            </div>
+                            <div class="md:w-1/2 p-6">
+                                <div class="text-sm text-pink-500 font-semibold mb-2">April 7, 2026</div>
+                                <h3 class="text-2xl font-bold mb-3 gradient-text">ITS Seminole Showcase</h3>
+                                <p class="text-pink-400 leading-relaxed mb-4">
+                                    Participating in the ITS Seminole Showcase at the Florida State Capitol Building, showcasing innovative technology projects and connecting with fellow students and professionals.
+                                </p>
+                                <a href="https://its.fsu.edu/its-seminole-showcase" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View Showcase Info &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <br />
@@ -379,7 +765,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-rose-800 text-white py-6">
+    <footer class="bg-rose-800 text-white py-4">
         <div class="container mx-auto px-6 text-center">
             <p>&copy; 2025 Hailie Tucker. All Rights Reserved.</p>
         </div>
@@ -405,19 +791,16 @@
 <script>
     function scrollCarousel(direction) {
         const container = document.getElementById('project-slider');
-        const scrollAmount = 530; // Approx card width + gap
+        const scrollAmount = 530;
         const maxScroll = container.scrollWidth - container.clientWidth;
         
         if (direction === 'left') {
-            // If we are at the start, loop to the end
             if (container.scrollLeft <= 10) {
                  container.scrollTo({ left: maxScroll, behavior: 'smooth' });
             } else {
                  container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
             }
         } else {
-            // If we are at the end, loop to the start
-            // (We use a small buffer of 10px because scroll math can be slightly off)
             if (container.scrollLeft >= maxScroll - 10) {
                 container.scrollTo({ left: 0, behavior: 'smooth' });
             } else {
@@ -425,6 +808,59 @@
             }
         }
     }
+
+    // Cursor heart trail effect
+    let lastTrailTime = 0;
+    document.addEventListener('mousemove', (e) => {
+        const now = Date.now();
+        if (now - lastTrailTime > 100) {
+            lastTrailTime = now;
+            const heart = document.createElement('div');
+            heart.className = 'cursor-heart';
+            heart.innerHTML = '<svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>';
+            heart.style.left = e.pageX + 'px';
+            heart.style.top = e.pageY + 'px';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+    });
+
+    // Initialize highlight carousel
+    document.querySelectorAll('.highlight-carousel').forEach(carousel => {
+        const images = carousel.querySelector('.carousel-images');
+        const dots = carousel.querySelectorAll('.carousel-dot');
+        const prevBtn = carousel.querySelector('.carousel-prev');
+        const nextBtn = carousel.querySelector('.carousel-next');
+        let currentIndex = 0;
+        const totalImages = images.children.length;
+
+        function updateCarousel() {
+            images.style.transform = `translateX(-${currentIndex * 100}%)`;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            updateCarousel();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalImages;
+            updateCarousel();
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                updateCarousel();
+            });
+        });
+    });
 </script>
 </body>
 </html>
