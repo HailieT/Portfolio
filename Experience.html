@@ -156,15 +156,7 @@
             width: 23px;
             height: 23px;
         }
-        .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
-}
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
+
     </style>
 </head>
 <body class="text-pink-800">
@@ -393,20 +385,7 @@
             });
         });
     </script>
-<script>
-    window.addEventListener('scroll', reveal);
-    function reveal() {
-        var reveals = document.querySelectorAll('.reveal');
-        for (var i = 0; i < reveals.length; i++) {
-            var windowHeight = window.innerHeight;
-            var elementTop = reveals[i].getBoundingClientRect().top;
-            var elementVisible = 150;
-            if (elementTop < windowHeight - elementVisible) {
-                reveals[i].classList.add('active');
-            }
-        }
-    }
-</script>
+
 </body>
 </html>
 
