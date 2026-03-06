@@ -1,0 +1,341 @@
+/* ============================================
+   SHARED STYLES FOR ALL PAGES
+   ============================================ */
+
+/* === BASE STYLES === */
+body {
+    font-family: 'Gamja Flower', cursive;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 25px;
+    position: relative;
+    min-height: 100vh;
+    transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+/* === DARK MODE STYLES === */
+/* To change dark mode colors, modify the color values below */
+body.dark-mode {
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+}
+
+body.dark-mode #bg-video {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+body.dark-mode .bg-white {
+    background-color: #2d2d44 !important;
+    transition: background-color 0.8s ease;
+}
+
+body.dark-mode .text-pink-400 {
+    color: #f48fb1 !important;
+}
+
+body.dark-mode header {
+    background-color: #2d2d44 !important;
+}
+
+body.dark-mode footer {
+    background-color: #4a1942 !important;
+}
+
+/* === MOBILE MENU DARK MODE === */
+body.dark-mode #mobile-menu {
+    background-color: #2d2d44 !important;
+    border-color: #4a1942 !important;
+}
+
+body.dark-mode #mobile-menu a {
+    color: #f48fb1 !important;
+}
+
+body.dark-mode #mobile-menu a:hover {
+    background-color: #3d3d5c !important;
+}
+
+body.dark-mode #mobile-menu button {
+    color: #f48fb1 !important;
+}
+
+/* === NAVIGATION STYLES === */
+/* Active page indicator - change glow color here */
+.nav-link {
+    position: relative;
+    transition: all 0.3s;
+}
+
+.nav-link.active {
+    text-shadow: 0 0 10px rgba(251, 146, 60, 0.8), 0 0 20px rgba(251, 146, 60, 0.6);
+    color: #fb923c !important;
+}
+
+body.dark-mode .nav-link.active {
+    text-shadow: 0 0 15px rgba(251, 146, 60, 1), 0 0 25px rgba(251, 146, 60, 0.8);
+    color: #ffa500 !important;
+}
+
+/* === FOCUS INDICATORS === */
+a:focus, button:focus {
+    outline: 3px solid #fb923c;
+    outline-offset: 2px;
+}
+
+/* === HOVER EFFECTS === */
+/* Social media icon hover - change glow colors here */
+#contact a svg {
+    transition: all 0.3s ease;
+}
+
+#contact a:hover svg {
+    filter: drop-shadow(0 0 8px rgba(190, 24, 93, 0.6));
+}
+
+body.dark-mode #contact a svg {
+    transition: all 0.3s ease;
+}
+
+body.dark-mode #contact a:hover svg {
+    filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.8));
+}
+
+body.dark-mode #contact a:hover {
+    color: #fb923c !important;
+}
+
+/* Button hover glow effects - change glow intensity here */
+button, .bg-pink-400, .bg-pink-500 {
+    transition: all 0.3s ease;
+}
+
+button:hover, .bg-pink-400:hover, .bg-pink-500:hover {
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 30px rgba(236, 72, 153, 0.3);
+}
+
+body.dark-mode button:hover, 
+body.dark-mode .bg-pink-400:hover, 
+body.dark-mode .bg-pink-500:hover {
+    box-shadow: 0 0 25px rgba(251, 146, 60, 0.7), 0 0 40px rgba(251, 146, 60, 0.4);
+}
+
+/* === SCROLL TO TOP BUTTON === */
+/* Change position with bottom/right values */
+#scroll-to-top {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+    transition: all 0.3s ease;
+}
+
+#scroll-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+}
+
+#scroll-to-top.show {
+    display: flex;
+}
+
+body.dark-mode #scroll-to-top {
+    box-shadow: 0 4px 12px rgba(251, 146, 60, 0.4);
+}
+
+body.dark-mode #scroll-to-top:hover {
+    box-shadow: 0 6px 20px rgba(251, 146, 60, 0.6);
+}
+
+/* === FOOTER VISIBILITY === */
+footer {
+    position: relative;
+    z-index: 10;
+    margin-top: 40px;
+}
+
+/* === MOBILE MENU OVERLAY === */
+#mobile-menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+}
+
+#mobile-menu-overlay.show {
+    display: block;
+}
+
+/* === BACKGROUND EFFECTS === */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    pointer-events: none;
+    z-index: 0;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+/* Floating hearts animation */
+.heart {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    animation: float 15s infinite;
+    z-index: 1;
+    opacity: 0;
+}
+
+.heart svg {
+    width: 100%;
+    height: 100%;
+    fill: #ec4899;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 3px rgba(236, 72, 153, 0.4));
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-100vh) rotate(360deg) scale(1); opacity: 0; }
+}
+
+/* Stagger the hearts with varying sizes and delays */
+.heart:nth-child(1) { left: 10%; animation-delay: 0s; width: 25px; height: 25px; }
+.heart:nth-child(2) { left: 20%; animation-delay: 3s; width: 20px; height: 20px; }
+.heart:nth-child(3) { left: 30%; animation-delay: 6s; width: 28px; height: 28px; }
+.heart:nth-child(4) { left: 40%; animation-delay: 2s; width: 22px; height: 22px; }
+.heart:nth-child(5) { left: 50%; animation-delay: 8s; width: 30px; height: 30px; }
+.heart:nth-child(6) { left: 60%; animation-delay: 4s; width: 26px; height: 26px; }
+.heart:nth-child(7) { left: 70%; animation-delay: 7s; width: 24px; height: 24px; }
+.heart:nth-child(8) { left: 80%; animation-delay: 1s; width: 21px; height: 21px; }
+.heart:nth-child(9) { left: 90%; animation-delay: 5s; width: 27px; height: 27px; }
+.heart:nth-child(10) { left: 15%; animation-delay: 9s; width: 23px; height: 23px; }
+
+/* Sparkle cursor effect - hearts that float up from cursor */
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 9999;
+    width: 12px;
+    height: 12px;
+    animation: cursorHeartFloat 1s ease-out forwards;
+}
+
+.sparkle svg {
+    width: 100%;
+    height: 100%;
+    fill: #ec4899;
+}
+
+@keyframes cursorHeartFloat {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-50px) scale(0.5); }
+}
+
+/* === MOBILE OPTIMIZATIONS === */
+@media (max-width: 768px) {
+    /* Touch feedback */
+    button:active, .bg-pink-400:active, .bg-pink-500:active,
+    a:active, .nav-link:active {
+        transform: scale(0.95);
+    }
+
+    /* Reduce heart animations for performance */
+    .heart {
+        animation-duration: 20s;
+    }
+
+    /* Hide video on mobile, use gradient */
+    #bg-video {
+        display: none;
+    }
+
+    body::before {
+        background: linear-gradient(135deg, #fce7f3 0%, #ddd6fe 100%);
+    }
+
+    body.dark-mode::before {
+        background: #1a1a2e;
+    }
+
+    /* Improved tap targets - minimum 44x44px */
+    .nav-link, #mobile-menu a, button {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #contact a svg {
+        width: 44px;
+        height: 44px;
+    }
+
+    /* Footer spacing on mobile */
+    footer {
+        margin-bottom: 20px;
+    }
+}
+
+/* === DESKTOP OPTIMIZATIONS === */
+@media (min-width: 768px) {
+    body {
+        background-attachment: fixed;
+    }
+}
+
+/* === GRADIENT TEXT EFFECT === */
+/* Change gradient colors here */
+.gradient-text {
+    background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* === REVEAL ANIMATION === */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === MODEL CARD STYLES === */
+.model-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.model-card:hover {
+    transform: translateY(-5px);
+}

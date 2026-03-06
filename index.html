@@ -7,422 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.ico">
+    <!-- Shared styles across all pages -->
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: 'Gamja Flower', cursive;
-            margin-left: 10%;
-            margin-right: 10%;
-            border-block-color: pink;
-            font-size: 25px;
-            background-size: cover;
-            background-position: center;
-            background-attachment: scroll;
-            background-repeat: no-repeat;
-            position: relative;
-            min-height: 100vh;
-            transition: background-color 0.8s ease, color 0.8s ease;
-        }
-
-        /* Dark mode styles */
-        body.dark-mode {
-            background-color: #1a1a2e;
-            color: #e0e0e0;
-        }
-
-        body.dark-mode #bg-video {
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        body.dark-mode .bg-white {
-            background-color: #2d2d44 !important;
-            color: #e0e0e0;
-            transition: background-color 0.8s ease, color 0.8s ease;
-        }
-
-        body.dark-mode .text-pink-400,
-        body.dark-mode .text-pink-800 {
-            color: #f48fb1 !important;
-        }
-
-        body.dark-mode header {
-            background-color: #2d2d44 !important;
-        }
-
-        body.dark-mode footer {
-            background-color: #4a1942 !important;
-        }
-
-        /* Mobile menu dark mode */
-        body.dark-mode #mobile-menu {
-            background-color: #2d2d44 !important;
-            border-color: #4a1942 !important;
-        }
-
-        body.dark-mode #mobile-menu a {
-            color: #f48fb1 !important;
-        }
-
-        body.dark-mode #mobile-menu a:hover {
-            background-color: #3d3d5c !important;
-        }
-
-        body.dark-mode #mobile-menu button {
-            color: #f48fb1 !important;
-        }
-
-        /* Active page indicator */
-        .nav-link {
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .nav-link.active {
-            text-shadow: 0 0 10px rgba(251, 146, 60, 0.8), 0 0 20px rgba(251, 146, 60, 0.6);
-            color: #fb923c !important;
-        }
-
-        /* Ensure active link stays bright orange in dark mode */
-        body.dark-mode .nav-link.active {
-            text-shadow: 0 0 15px rgba(251, 146, 60, 1), 0 0 25px rgba(251, 146, 60, 0.8);
-            color: #ffa500 !important;
-        }
-
-        /* Focus indicators */
-        a:focus, button:focus, input:focus {
-            outline: 3px solid #fb923c;
-            outline-offset: 2px;
-        }
-
-        /* Social media icon hover effects in light mode */
-        #contact a svg {
-            transition: all 0.3s ease;
-        }
-
-        #contact a:hover svg {
-            filter: drop-shadow(0 0 8px rgba(190, 24, 93, 0.6));
-        }
-
-        /* Button hover glow effects */
-        button, .bg-pink-400, .bg-pink-500 {
-            transition: all 0.3s ease;
-        }
-
-        button:hover, .bg-pink-400:hover, .bg-pink-500:hover {
-            box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 30px rgba(236, 72, 153, 0.3);
-        }
-
-        body.dark-mode button:hover, 
-        body.dark-mode .bg-pink-400:hover, 
-        body.dark-mode .bg-pink-500:hover {
-            box-shadow: 0 0 25px rgba(251, 146, 60, 0.7), 0 0 40px rgba(251, 146, 60, 0.4);
-        }
-
-        /* Touch feedback for mobile */
-        @media (max-width: 768px) {
-            button:active, .bg-pink-400:active, .bg-pink-500:active,
-            a:active, .nav-link:active {
-                transform: scale(0.95);
-            }
-
-            /* Reduce heart animations on mobile for performance */
-            .heart {
-                animation-duration: 20s;
-            }
-
-            /* Pause video on mobile to save battery */
-            #bg-video {
-                display: none;
-            }
-
-            body::before {
-                background: linear-gradient(135deg, #fce7f3 0%, #ddd6fe 100%);
-            }
-
-            body.dark-mode::before {
-                background: #1a1a2e;
-            }
-        }
-
-        /* Scroll to top button */
-        #scroll-to-top {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        /* Ensure footer is visible on mobile */
-        footer {
-            position: relative;
-            z-index: 10;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 768px) {
-            footer {
-                margin-bottom: 20px;
-            }
-        }
-
-        #scroll-to-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
-        }
-
-        #scroll-to-top.show {
-            display: flex;
-        }
-
-        body.dark-mode #scroll-to-top {
-            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.4);
-        }
-
-        body.dark-mode #scroll-to-top:hover {
-            box-shadow: 0 6px 20px rgba(251, 146, 60, 0.6);
-        }
-
-        /* Improved tap targets for mobile */
-        @media (max-width: 768px) {
-            .nav-link, #mobile-menu a, button {
-                min-height: 44px;
-                min-width: 44px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            #contact a svg {
-                width: 44px;
-                height: 44px;
-            }
-        }
-
-        /* Mobile menu overlay */
-        #mobile-menu-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 40;
-        }
-
-        #mobile-menu-overlay.show {
-            display: block;
-        }
-
-        /* Social media icon hover effects in dark mode */
-        body.dark-mode #contact a svg {
-            transition: all 0.3s ease;
-        }
-
-        body.dark-mode #contact a:hover svg {
-            filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.8));
-        }
-
-        body.dark-mode #contact a:hover {
-            color: #fb923c !important;
-        }
-
-        /* Desktop only: use fixed background */
-        @media (min-width: 768px) {
-            body {
-                background-attachment: fixed;
-            }
-        }
+        /* ============================================
+           PAGE-SPECIFIC STYLES FOR INDEX.HTML
+           ============================================ */
         
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.2);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        main {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Floating Hearts Animation */
-        .heart {
-            position: fixed;
-            width: 30px;
-            height: 30px;
-            pointer-events: none;
-            animation: float 15s infinite;
-            z-index: 1;
-            opacity: 0;
-        }
-
-            .heart svg {
-                width: 100%;
-                height: 100%;
-                fill: #ec4899;
-                opacity: 0.6;
-                filter: drop-shadow(0 0 3px rgba(236, 72, 153, 0.4));
-            }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg) scale(0.5);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 0.8;
-            }
-
-            90% {
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(-100vh) rotate(360deg) scale(1);
-                opacity: 0;
-            }
-        }
-
-        /* Stagger the hearts with varying sizes */
-        .heart:nth-child(1) {
-            left: 10%;
-            animation-delay: 0s;
-            width: 25px;
-            height: 25px;
-        }
-
-        .heart:nth-child(2) {
-            left: 20%;
-            animation-delay: 3s;
-            width: 20px;
-            height: 20px;
-        }
-
-        .heart:nth-child(3) {
-            left: 30%;
-            animation-delay: 6s;
-            width: 28px;
-            height: 28px;
-        }
-
-        .heart:nth-child(4) {
-            left: 40%;
-            animation-delay: 2s;
-            width: 22px;
-            height: 22px;
-        }
-
-        .heart:nth-child(5) {
-            left: 50%;
-            animation-delay: 8s;
-            width: 30px;
-            height: 30px;
-        }
-
-        .heart:nth-child(6) {
-            left: 60%;
-            animation-delay: 4s;
-            width: 26px;
-            height: 26px;
-        }
-
-        .heart:nth-child(7) {
-            left: 70%;
-            animation-delay: 7s;
-            width: 24px;
-            height: 24px;
-        }
-
-        .heart:nth-child(8) {
-            left: 80%;
-            animation-delay: 1s;
-            width: 21px;
-            height: 21px;
-        }
-
-        .heart:nth-child(9) {
-            left: 90%;
-            animation-delay: 5s;
-            width: 27px;
-            height: 27px;
-        }
-
-        .heart:nth-child(10) {
-            left: 15%;
-            animation-delay: 9s;
-            width: 23px;
-            height: 23px;
-        }
-
-        /* Gradient text */
-        .gradient-text {
-            background: linear-gradient(135deg, #ec4899 0%, #fb923c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Cursor trail hearts */
-        .cursor-heart {
-            position: absolute;
-            pointer-events: none;
-            z-index: 9999;
-            width: 12px;
-            height: 12px;
-            animation: cursorHeartFloat 1s ease-out forwards;
-        }
-
-        .cursor-heart svg {
-            width: 100%;
-            height: 100%;
-            fill: #ec4899;
-        }
-
-        @keyframes cursorHeartFloat {
-            0% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.5);
-            }
-        }
-
-        /* Smooth page transitions */
-        body {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Radar Chart Styles */
+        /* === RADAR CHART === */
+        /* Adjust size by changing width/height values */
         .radar-chart {
             width: 300px;
             height: 300px;
@@ -434,12 +27,11 @@
             filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.3));
         }
 
-        /* Fix header and footer width on horizontal scroll */
+        /* === HEADER/FOOTER WIDTH FIX === */
         header, footer {
             width: 100%;
             min-width: fit-content;
         }
-
     </style>
 </head>
 <body class="text-pink-800">
@@ -456,6 +48,23 @@
     <div id="scroll-to-top" aria-label="Scroll to top">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </div>
+
+    <!-- Floating Hearts -->
+    <div class="hearts-container">
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+        <div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>
+    </div>
+
         </svg>
     </div>
 
@@ -723,94 +332,11 @@
         </div>
     </footer>
 
-    <script>
-        // Simple script for mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenuOverlay.classList.toggle('show');
-        });
-
-        // Close mobile menu when clicking overlay
-        mobileMenuOverlay.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            mobileMenuOverlay.classList.remove('show');
-        });
-
-        // Close mobile menu when a link is clicked
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenuOverlay.classList.remove('show');
-            });
-        });
-
-        // Scroll to top button
-        const scrollToTopBtn = document.getElementById('scroll-to-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.classList.add('show');
-            } else {
-                scrollToTopBtn.classList.remove('show');
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Cursor heart trail effect
-        let lastTrailTime = 0;
-        document.addEventListener('mousemove', (e) => {
-            const now = Date.now();
-            if (now - lastTrailTime > 100) { // Create heart every 100ms
-                lastTrailTime = now;
-                const heart = document.createElement('div');
-                heart.className = 'cursor-heart';
-                heart.innerHTML = '<svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>';
-                heart.style.left = e.pageX + 'px';
-                heart.style.top = e.pageY + 'px';
-                document.body.appendChild(heart);
-                
-                setTimeout(() => {
-                    heart.remove();
-                }, 1000);
-            }
-        });
-    </script>
+    <!-- ============================================
+         SHARED JAVASCRIPT
+         All common functionality is in common.js
+         ============================================ -->
     <script src="common.js"></script>
-    <script>
-        // Sync mobile dark mode toggle with desktop
-        const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
-        const darkModeIconMobile = document.getElementById('dark-mode-icon-mobile');
-        
-        if (darkModeToggleMobile) {
-            // Set initial state
-            if (document.body.classList.contains('dark-mode')) {
-                darkModeIconMobile.textContent = '☀️';
-            }
-            
-            darkModeToggleMobile.addEventListener('click', () => {
-                document.body.classList.toggle('dark-mode');
-                if (document.body.classList.contains('dark-mode')) {
-                    localStorage.setItem('darkMode', 'enabled');
-                    darkModeIconMobile.textContent = '☀️';
-                    document.getElementById('dark-mode-toggle').textContent = '☀️';
-                } else {
-                    localStorage.setItem('darkMode', 'disabled');
-                    darkModeIconMobile.textContent = '🌙';
-                    document.getElementById('dark-mode-toggle').textContent = '🌙';
-                }
-            });
-        }
-    </script>
 
 </body>
 </html>
