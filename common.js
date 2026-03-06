@@ -130,9 +130,12 @@ function initRevealOnScroll() {
 }
 
 // === FLOATING HEARTS ANIMATION ===
-// Creates animated hearts in background
-// To change heart frequency, modify the interval (currently 3000ms)
+// Static hearts are now in HTML for all pages
+// This function is disabled to prevent duplicate/giant hearts
 function initFloatingHearts() {
+    // Disabled - hearts are now static SVG elements in HTML
+    // If you want to re-enable dynamic hearts, uncomment the code below
+    /*
     setInterval(() => {
         const heart = document.createElement('div');
         heart.classList.add('heart');
@@ -145,6 +148,7 @@ function initFloatingHearts() {
         // Remove heart after animation completes
         setTimeout(() => heart.remove(), 20000);
     }, 3000);
+    */
 }
 
 // === SPARKLE CURSOR EFFECT ===
@@ -169,6 +173,7 @@ function createSparkle(x, y) {
     sparkle.innerHTML = '<svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>';
     sparkle.style.left = x + 'px';
     sparkle.style.top = y + 'px';
+    sparkle.style.position = 'fixed'; // Use fixed positioning to prevent scroll issues
     document.body.appendChild(sparkle);
     
     // Remove sparkle after animation
@@ -183,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initScrollToTop();
     initRevealOnScroll();
-    initFloatingHearts();
+    // initFloatingHearts(); // DISABLED - Static SVG hearts are in HTML instead
     initSparkleEffect();
 });
 

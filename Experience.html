@@ -114,9 +114,25 @@
             z-index: 1;
         }
 
+        /* Prevent hearts from causing scroll issues */
+        body {
+            overflow-x: hidden;
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
         /* Floating Hearts Animation */
         .heart {
-            position: fixed;
+            position: absolute;
             width: 30px;
             height: 30px;
             pointer-events: none;
