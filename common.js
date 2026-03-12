@@ -7,8 +7,10 @@
 // Handles theme switching and persistence
 function initDarkMode() {
     const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const mobileDarkModeToggle = document.getElementById('mobile-dark-mode-toggle');
+    const mobileDarkModeToggle = document.getElementById('dark-mode-toggle-mobile');
     const body = document.body;
+    
+    console.log('Dark mode init:', { darkModeToggle, mobileDarkModeToggle }); // Debug
     
     // Load saved preference from localStorage
     if (localStorage.getItem('darkMode') === 'enabled') {
@@ -19,17 +21,27 @@ function initDarkMode() {
     
     // Desktop toggle handler
     if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', () => toggleDarkMode());
+        darkModeToggle.addEventListener('click', () => {
+            console.log('Desktop toggle clicked'); // Debug
+            toggleDarkMode();
+        });
     }
     
     // Mobile toggle handler
     if (mobileDarkModeToggle) {
-        mobileDarkModeToggle.addEventListener('click', () => toggleDarkMode());
+        mobileDarkModeToggle.addEventListener('click', (e) => {
+            console.log('Mobile toggle clicked'); // Debug
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDarkMode();
+        });
     }
     
     function toggleDarkMode() {
         body.classList.toggle('dark-mode');
         const isDark = body.classList.contains('dark-mode');
+        
+        console.log('Dark mode toggled:', isDark); // Debug
         
         // Update both toggles
         const icon = isDark ? '☀️' : '🌙';

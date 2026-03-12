@@ -488,40 +488,6 @@
             min-width: fit-content;
         }
 
-        /* Mobile swipe indicators */
-        .swipe-hint {
-            display: none;
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            background: rgba(236, 72, 153, 0.9);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            animation: pulseHint 2s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-            .swipe-hint {
-                display: block;
-            }
-        }
-
-        @keyframes pulseHint {
-            0%, 100% {
-                opacity: 0.8;
-                transform: translateX(-50%) scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: translateX(-50%) scale(1.05);
-            }
-        }
-
         /* Mobile navigation arrows - always visible on mobile */
         .mobile-nav-arrow {
             display: none;
@@ -589,70 +555,6 @@
             border-radius: 4px;
         }
 
-        /* Swipe animation arrows */
-        .swipe-arrows {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10;
-            pointer-events: none;
-        }
-
-        @media (max-width: 768px) {
-            .swipe-arrows {
-                display: flex;
-                gap: 40px;
-            }
-        }
-
-        .swipe-arrow-left,
-        .swipe-arrow-right {
-            font-size: 32px;
-            color: rgba(236, 72, 153, 0.6);
-            animation: swipeAnimation 2s ease-in-out infinite;
-        }
-
-        .swipe-arrow-left {
-            animation-delay: 0s;
-        }
-
-        .swipe-arrow-right {
-            animation-delay: 1s;
-        }
-
-        @keyframes swipeAnimation {
-            0%, 100% {
-                opacity: 0.3;
-                transform: translateX(0);
-            }
-            50% {
-                opacity: 0.8;
-                transform: translateX(-10px);
-            }
-        }
-
-        .swipe-arrow-right {
-            animation-name: swipeAnimationRight;
-        }
-
-        @keyframes swipeAnimationRight {
-            0%, 100% {
-                opacity: 0.3;
-                transform: translateX(0);
-            }
-            50% {
-                opacity: 0.8;
-                transform: translateX(10px);
-            }
-        }
-
-        /* Hide swipe hints after first interaction */
-        .swipe-hints-hidden .swipe-hint,
-        .swipe-hints-hidden .swipe-arrows {
-            display: none !important;
-        }
         /* Social media icon hover effects in light mode */
         #contact a svg {
             transition: all 0.3s ease;
@@ -868,8 +770,9 @@
     <!-- Header & Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
-
             <a href="index.html"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
+            
+            <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8 items-center">
                 <a href="index.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">About</a>
                 <a href="Experience.html" class="nav-link text-pink-400 hover:text-rose-700 transition duration-300">Experience</a>
@@ -880,23 +783,27 @@
                     🌙
                 </button>
             </div>
-            <button id="mobile-menu-button" class="md:hidden flex items-center p-2">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </nav>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <a href="index.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">About</a>
-            <a href="Experience.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">Experience</a>
-            <a href="Projects.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400 font-bold">Projects</a>
-            <a href="3DModels.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">3D Models</a>
-            <a href="Testimonials.html" class="block py-3 px-6 text-sm hover:bg-gray-100 text-pink-400">Testimonials</a>
-            <div class="py-3 px-6 border-t">
-                <button id="dark-mode-toggle-mobile" class="w-full text-left text-pink-400 hover:text-rose-700 transition duration-300 flex items-center gap-2" aria-label="Toggle dark mode">
-                    <span id="dark-mode-icon-mobile">🌙</span>
-                    <span>Dark Mode</span>
+            
+            <!-- Mobile Navigation -->
+            <div class="md:hidden flex items-center gap-3">
+                <button id="dark-mode-toggle-mobile" class="p-2 rounded-full hover:bg-pink-100 transition text-2xl" aria-label="Toggle dark mode">
+                    🌙
+                </button>
+                <button id="mobile-menu-button" class="flex items-center p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
                 </button>
             </div>
+        </nav>
+        
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-lg">
+            <a href="index.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">About</a>
+            <a href="Experience.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">Experience</a>
+            <a href="Projects.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 font-bold border-b border-pink-100">Projects</a>
+            <a href="3DModels.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">3D Models</a>
+            <a href="Testimonials.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600">Testimonials</a>
         </div>
     </header>
 
@@ -952,17 +859,6 @@
         <button onclick="scrollCarousel('right')" class="mobile-nav-arrow right" aria-label="Next project">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
         </button>
-        
-        <!-- Swipe hint text -->
-        <div class="swipe-hint">
-            👈 Swipe to explore 👉
-        </div>
-        
-        <!-- Animated swipe arrows -->
-        <div class="swipe-arrows">
-            <span class="swipe-arrow-left">←</span>
-            <span class="swipe-arrow-right">→</span>
-        </div>
         
         <!-- Scroll progress dots -->
         <div class="scroll-dots" id="scroll-dots"></div>
@@ -1304,57 +1200,18 @@
         </div>
     </footer>
 
+    <!-- Page-specific JavaScript for project carousel and search -->
     <script>
-        // Simple script for mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenuOverlay.classList.toggle('show');
-        });
-
-        mobileMenuOverlay.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            mobileMenuOverlay.classList.remove('show');
-        });
-
-        // Close mobile menu when a link is clicked
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                mobileMenuOverlay.classList.remove('show');
-            });
-        });
-
-        // Scroll to top button
-        const scrollToTopBtn = document.getElementById('scroll-to-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollToTopBtn.classList.add('show');
-            } else {
-                scrollToTopBtn.classList.remove('show');
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    </script>
-
-<script>
     function scrollCarousel(direction) {
         const container = document.getElementById('project-slider');
-        const scrollAmount = 530;
-        const maxScroll = container.scrollWidth - container.clientWidth;
+        const visibleCards = container.querySelectorAll('.project-card:not(.hidden)');
         
-        // Hide swipe hints after first interaction
-        document.getElementById('carousel-container').classList.add('swipe-hints-hidden');
+        if (visibleCards.length === 0) return;
+        
+        // Calculate actual card width dynamically (card width + gap)
+        const firstCard = visibleCards[0];
+        const scrollAmount = firstCard.offsetWidth + 32; // 32px is gap-8
+        const maxScroll = container.scrollWidth - container.clientWidth;
         
         if (direction === 'left') {
             if (container.scrollLeft <= 10) {
@@ -1377,9 +1234,9 @@
     function initScrollDots() {
         const container = document.getElementById('project-slider');
         const dotsContainer = document.getElementById('scroll-dots');
-        const projectCards = container.querySelectorAll('.project-card');
+        const projectCards = container.querySelectorAll('.project-card:not(.hidden)');
         
-        // Create dots
+        // Create dots only for visible cards
         dotsContainer.innerHTML = '';
         projectCards.forEach((_, index) => {
             const dot = document.createElement('div');
@@ -1389,14 +1246,21 @@
         });
         
         // Update dots on scroll
+        container.removeEventListener('scroll', updateScrollDots); // Remove old listener
         container.addEventListener('scroll', updateScrollDots);
     }
 
     function updateScrollDots() {
         const container = document.getElementById('project-slider');
         const dots = document.querySelectorAll('.scroll-dot');
+        const visibleCards = container.querySelectorAll('.project-card:not(.hidden)');
+        
+        if (visibleCards.length === 0 || dots.length === 0) return;
+        
         const scrollPosition = container.scrollLeft;
-        const cardWidth = 530; // approximate card width + gap
+        // Calculate actual card width dynamically (card width + gap)
+        const firstCard = visibleCards[0];
+        const cardWidth = firstCard.offsetWidth + 32; // 32px is gap-8
         const currentIndex = Math.round(scrollPosition / cardWidth);
         
         dots.forEach((dot, index) => {
@@ -1455,51 +1319,13 @@
     // Hide hints on touch/scroll
     document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('project-slider');
-        const carouselContainer = document.getElementById('carousel-container');
         
         initScrollDots();
         initProjectCarousels();
         
-        let hasInteracted = false;
-        
-        container.addEventListener('touchstart', () => {
-            if (!hasInteracted) {
-                hasInteracted = true;
-                carouselContainer.classList.add('swipe-hints-hidden');
-            }
-        });
-        
         container.addEventListener('scroll', () => {
-            if (!hasInteracted) {
-                hasInteracted = true;
-                carouselContainer.classList.add('swipe-hints-hidden');
-            }
             updateScrollDots();
         });
-        
-        // Auto-hide hints after 5 seconds
-        setTimeout(() => {
-            carouselContainer.classList.add('swipe-hints-hidden');
-        }, 5000);
-    });
-
-    // Cursor heart trail effect
-    let lastTrailTime = 0;
-    document.addEventListener('mousemove', (e) => {
-        const now = Date.now();
-        if (now - lastTrailTime > 100) {
-            lastTrailTime = now;
-            const heart = document.createElement('div');
-            heart.className = 'cursor-heart';
-            heart.innerHTML = '<svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg>';
-            heart.style.left = e.pageX + 'px';
-            heart.style.top = e.pageY + 'px';
-            document.body.appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 1000);
-        }
     });
 
     // Initialize highlight carousel
@@ -1580,37 +1406,20 @@
                 }
             });
             
+            // Reinitialize scroll dots for visible cards
+            initScrollDots();
+            
+            // Scroll to start
+            const container = document.getElementById('project-slider');
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+            
             // Clear search when filtering
             searchInput.value = '';
         });
     });
 </script>
-<script src="common.js"></script>
-<script>
-    // Sync mobile dark mode toggle with desktop
-    const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
-    const darkModeIconMobile = document.getElementById('dark-mode-icon-mobile');
-    
-    if (darkModeToggleMobile) {
-        // Set initial state
-        if (document.body.classList.contains('dark-mode')) {
-            darkModeIconMobile.textContent = '☀️';
-        }
-        
-        darkModeToggleMobile.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-                darkModeIconMobile.textContent = '☀️';
-                document.getElementById('dark-mode-toggle').textContent = '☀️';
-            } else {
-                localStorage.setItem('darkMode', 'disabled');
-                darkModeIconMobile.textContent = '🌙';
-                document.getElementById('dark-mode-toggle').textContent = '🌙';
-            }
-        });
-    }
-</script>
+    <!-- Shared JavaScript -->
+    <script src="common.js"></script>
 </body>
 </html>
 
