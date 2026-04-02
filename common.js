@@ -13,10 +13,12 @@ function initDarkMode() {
     console.log('Dark mode init:', { darkModeToggle, mobileDarkModeToggle }); // Debug
     
     // Load saved preference from localStorage
-    if (localStorage.getItem('darkMode') === 'enabled') {
+    const isDarkMode = localStorage.getItem('darkMode') === 'enabled';
+    if (isDarkMode) {
         body.classList.add('dark-mode');
-        if (darkModeToggle) darkModeToggle.textContent = '☀️';
-        if (mobileDarkModeToggle) mobileDarkModeToggle.textContent = '☀️';
+        updateDarkModeUI(true);
+    } else {
+        updateDarkModeUI(false);
     }
     
     // Desktop toggle handler
@@ -43,13 +45,24 @@ function initDarkMode() {
         
         console.log('Dark mode toggled:', isDark); // Debug
         
-        // Update both toggles
-        const icon = isDark ? '☀️' : '🌙';
-        if (darkModeToggle) darkModeToggle.textContent = icon;
-        if (mobileDarkModeToggle) mobileDarkModeToggle.textContent = icon;
+        updateDarkModeUI(isDark);
         
         // Save preference
         localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+    }
+    
+    function updateDarkModeUI(isDark) {
+        const icon = isDark ? '☀️' : '🌙';
+        const label = isDark ? 'Light mode' : 'Dark mode';
+        
+        if (darkModeToggle) {
+            darkModeToggle.textContent = icon;
+            darkModeToggle.setAttribute('aria-label', label + ', currently ' + (isDark ? 'on' : 'off'));
+        }
+        if (mobileDarkModeToggle) {
+            mobileDarkModeToggle.textContent = icon;
+            mobileDarkModeToggle.setAttribute('aria-label', label + ', currently ' + (isDark ? 'on' : 'off'));
+        }
     }
 }
 
@@ -78,14 +91,17 @@ function initMobileMenu() {
 
     // Toggle menu on button click
     mobileMenuButton.addEventListener('click', () => {
+        const isExpanded = mobileMenu.classList.contains('hidden');
         mobileMenu.classList.toggle('hidden');
         mobileMenuOverlay.classList.toggle('show');
+        mobileMenuButton.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
     });
 
     // Close menu when clicking overlay
     mobileMenuOverlay.addEventListener('click', () => {
         mobileMenu.classList.add('hidden');
         mobileMenuOverlay.classList.remove('show');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
     });
 
     // Close menu when clicking any link
@@ -93,6 +109,7 @@ function initMobileMenu() {
         link.addEventListener('click', () => {
             mobileMenu.classList.add('hidden');
             mobileMenuOverlay.classList.remove('show');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
         });
     });
 }

@@ -2,6 +2,57 @@
    SHARED STYLES FOR ALL PAGES
    ============================================ */
 
+/* === ACCESSIBILITY IMPROVEMENTS === */
+/* Visible focus indicators for keyboard navigation */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid #ec4899;
+    outline-offset: 2px;
+}
+
+/* Skip to main content link (hidden until focused) */
+.skip-link {
+    position: fixed !important;
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-100%) !important;
+    background: #ec4899 !important;
+    color: white !important;
+    padding: 12px 24px !important;
+    text-decoration: none !important;
+    z-index: 10000 !important;
+    font-weight: bold !important;
+    border-radius: 0 0 8px 8px !important;
+    transition: transform 0.3s ease !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.skip-link:focus {
+    transform: translateX(-50%) translateY(0) !important;
+    outline: 3px solid #fb923c !important;
+    outline-offset: 2px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
 /* === BASE STYLES === */
 body {
     font-family: 'Gamja Flower', cursive;

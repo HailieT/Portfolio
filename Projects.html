@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.ico">
+    <!-- Shared styles across all pages -->
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: 'Gamja Flower', cursive;
@@ -696,76 +698,77 @@
     </style>
 </head>
 <body class="text-pink-800">
+    <!-- Skip to main content link for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <video autoplay muted loop playsinline id="bg-video"
+    <video autoplay muted loop playsinline id="bg-video" aria-hidden="true"
            style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
         <source src="Pink_Blue_Background.mp4" type="video/mp4">
     </video>
 
     <!-- Mobile menu overlay -->
-    <div id="mobile-menu-overlay"></div>
+    <div id="mobile-menu-overlay" aria-hidden="true"></div>
 
     <!-- Scroll to top button -->
-    <div id="scroll-to-top" aria-label="Scroll to top">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button id="scroll-to-top" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>
-    </div>
+    </button>
 
     <!-- Floating Hearts -->
-    <div class="hearts-container">
+    <div class="hearts-container" aria-hidden="true">
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
         <div class="heart">
-            <svg viewBox="0 0 32 29.6">
+            <svg viewBox="0 0 32 29.6" aria-hidden="true">
                 <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z" />
             </svg>
         </div>
     </div>
-
 
     <!-- Header & Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
@@ -789,8 +792,8 @@
                 <button id="dark-mode-toggle-mobile" class="p-2 rounded-full hover:bg-pink-100 transition text-2xl" aria-label="Toggle dark mode">
                     🌙
                 </button>
-                <button id="mobile-menu-button" class="flex items-center p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="mobile-menu-button" class="flex items-center p-2" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </button>
@@ -798,16 +801,16 @@
         </nav>
         
         <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-lg">
+        <nav id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-lg" aria-label="Mobile navigation">
             <a href="index.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">About</a>
             <a href="Experience.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">Experience</a>
             <a href="Projects.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 font-bold border-b border-pink-100">Projects</a>
             <a href="3DModels.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">3D Models</a>
             <a href="Testimonials.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600">Testimonials</a>
-        </div>
+        </nav>
     </header>
 
-    <main>
+    <main id="main-content">
 
         <!-- Projects Section -->
         <section id="projects" class="py-12">
@@ -1139,21 +1142,21 @@
                         </div>
                     </div>
 
-                    <!-- Highlight Post 3 - ITS Seminole Showcase -->
+                    <!-- Highlight Post 3 - ITS RISE Together Showcase -->
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition duration-300" style="box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);">
                         <div class="md:flex">
                             <div class="md:w-1/2">
                                 <div style="min-height: 400px; height: 100%; background: linear-gradient(to bottom, rgba(236, 72, 153, 0.3) 0%, transparent 20%, transparent 80%, rgba(251, 146, 60, 0.3) 100%); display: flex; align-items: center; justify-content: center;">
-                                    <img src="ShowcasePoster.png" alt="ITS Seminole Showcase Poster" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                    <img src="ShowcasePoster.png" alt="ITS RISE Together Showcase Poster" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                                 </div>
                             </div>
                             <div class="md:w-1/2 p-6">
-                                <div class="text-sm text-pink-500 font-semibold mb-2">April 7, 2026</div>
-                                <h3 class="text-2xl font-bold mb-3 gradient-text">ITS Seminole Showcase</h3>
+                                <div class="text-sm text-pink-500 font-semibold mb-2">April 7, 2026 • 1:00 PM - 4:30 PM</div>
+                                <h3 class="text-2xl font-bold mb-3 gradient-text">ITS RISE Together Showcase</h3>
                                 <p class="text-pink-400 leading-relaxed mb-4">
-                                    Participating in the ITS Seminole Showcase at the Florida State Capitol Building, showcasing innovative technology projects and connecting with fellow students and professionals.
+                                    Participating in the ITS RISE Together Showcase at the Florida State Conference Center, showcasing innovative technology projects and connecting with fellow students and professionals.
                                 </p>
-                                <a href="https://its.fsu.edu/its-seminole-showcase" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View Showcase Info &rarr;</a>
+                                <a href="https://its.fsu.edu/about-its/initiatives/its-rise-together-showcase" class="text-rose-600 font-semibold hover:underline" target="_blank" rel="noopener noreferrer">View Showcase Info &rarr;</a>
                             </div>
                         </div>
                     </div>

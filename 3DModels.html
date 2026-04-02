@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
     <link rel="icon" href="favicon.ico">
+    <!-- Shared styles across all pages -->
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: 'Gamja Flower', cursive;
@@ -384,32 +386,34 @@
     </style>
 </head>
 <body class="text-pink-800">
+    <!-- Skip to main content link for screen readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <video autoplay muted loop playsinline id="bg-video">
+    <video autoplay muted loop playsinline id="bg-video" aria-hidden="true">
         <source src="Pink_Blue_Background.mp4" type="video/mp4">
     </video>
 
     <!-- Mobile menu overlay -->
-    <div id="mobile-menu-overlay"></div>
+    <div id="mobile-menu-overlay" aria-hidden="true"></div>
 
     <!-- Scroll to top button -->
-    <div id="scroll-to-top" aria-label="Scroll to top">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <button id="scroll-to-top" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>
-    </div>
+    </button>
 
-    <div class="hearts-container">
+    <div class="hearts-container" aria-hidden="true">
         <script>
             for (let i = 0; i < 10; i++) {
-                document.write('<div class="heart"><svg viewBox="0 0 32 29.6"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>');
+                document.write('<div class="heart"><svg viewBox="0 0 32 29.6" aria-hidden="true"><path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/></svg></div>');
             }
         </script>
     </div>
 
     <header class="bg-white shadow-md sticky top-0 z-50">
         <nav class="container mx-auto px-6 py-2 flex justify-between items-center">
-            <a href="index.html"> <img src="hailietucker.png" alt="Logo" class="h-14 w-auto"> </a>
+            <a href="index.html"> <img src="hailietucker.png" alt="Hailie Tucker Logo" class="h-14 w-auto"> </a>
             
             <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8 items-center">
@@ -428,8 +432,8 @@
                 <button id="dark-mode-toggle-mobile" class="p-2 rounded-full hover:bg-pink-100 transition text-2xl" aria-label="Toggle dark mode">
                     🌙
                 </button>
-                <button id="mobile-menu-button" class="flex items-center p-2">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="mobile-menu-button" class="flex items-center p-2" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
                 </button>
@@ -437,16 +441,16 @@
         </nav>
         
         <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-lg">
+        <nav id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-lg" aria-label="Mobile navigation">
             <a href="index.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">About</a>
             <a href="Experience.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">Experience</a>
             <a href="Projects.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 border-b border-pink-100">Projects</a>
             <a href="3DModels.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600 font-bold border-b border-pink-100">3D Models</a>
             <a href="Testimonials.html" class="block py-4 px-6 text-lg hover:bg-pink-50 text-pink-600">Testimonials</a>
-        </div>
+        </nav>
     </header>
 
-    <main class="py-6">
+    <main id="main-content" class="py-6">
         <h1 class="text-4xl font-bold text-center mb-6 gradient-text">3D Gallery</h1>
 
         <!-- Search Bar -->
