@@ -220,9 +220,195 @@ document.addEventListener('DOMContentLoaded', () => {
     // initFloatingHearts(); // DISABLED - Static SVG hearts are in HTML instead
     initSparkleEffect();
     initChatbot();
+    initTranslator();
 });
 
 
+
+// ============================================
+// LANGUAGE TRANSLATOR
+// Adds a translation dropdown to the header
+// To add more languages, add entries to the
+// 'languages' array below (use Google Translate codes)
+// Full list: https://cloud.google.com/translate/docs/languages
+// ============================================
+
+function initTranslator() {
+    // --- Language list: add new languages here ---
+    // Format: { code: 'google-translate-code', label: 'Display Name', flag: 'emoji' }
+    const languages = [
+        { code: '', label: 'English', flag: '🇺🇸' },
+        { code: 'es', label: 'Español', flag: '🇪🇸' },
+        { code: 'fr', label: 'Français', flag: '🇫🇷' },
+        { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+        { code: 'pt', label: 'Português', flag: '🇧🇷' },
+        { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+        { code: 'nl', label: 'Nederlands', flag: '🇳🇱' },
+        { code: 'ru', label: 'Русский', flag: '🇷🇺' },
+        { code: 'zh-CN', label: '中文(简体)', flag: '🇨🇳' },
+        { code: 'zh-TW', label: '中文(繁體)', flag: '🇹🇼' },
+        { code: 'ja', label: '日本語', flag: '🇯🇵' },
+        { code: 'ko', label: '한국어', flag: '🇰🇷' },
+        { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+        { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
+        { code: 'tr', label: 'Türkçe', flag: '🇹🇷' },
+        { code: 'pl', label: 'Polski', flag: '🇵🇱' },
+        { code: 'vi', label: 'Tiếng Việt', flag: '🇻🇳' },
+        { code: 'th', label: 'ไทย', flag: '🇹🇭' },
+        { code: 'sv', label: 'Svenska', flag: '🇸🇪' },
+        { code: 'uk', label: 'Українська', flag: '🇺🇦' },
+        // Add more: { code: 'xx', label: 'Name', flag: '🏳️' },
+    ];
+
+    // Build dropdown options HTML
+    let optionsHTML = '';
+    languages.forEach(lang => {
+        optionsHTML += `<button class="translate-option" data-lang="${lang.code}">${lang.flag} ${lang.label}</button>`;
+    });
+
+    // Build the widget HTML
+    const translateHTML = `
+    <div class="translate-wrapper">
+        <button class="translate-btn" id="translate-btn" aria-label="Change language" aria-expanded="false">
+            🌐 <span id="translate-current">EN</span> ▾
+        </button>
+        <div class="translate-dropdown" id="translate-dropdown" role="menu">
+            ${optionsHTML}
+        </div>
+    </div>`;
+
+    // Insert into desktop nav (before dark mode toggle)
+    const desktopNav = document.querySelector('.hidden.md\\:flex');
+    if (desktopNav) {
+        const darkToggle = document.getElementById('dark-mode-toggle');
+        if (darkToggle) {
+            darkToggle.insertAdjacentHTML('beforebegin', translateHTML);
+        }
+    }
+
+    // Insert into mobile nav (before dark mode toggle)
+    const mobileNav = document.querySelector('.md\\:hidden.flex.items-center');
+    if (mobileNav) {
+        const mobileDark = document.getElementById('dark-mode-toggle-mobile');
+        if (mobileDark) {
+            const mobileTranslate = translateHTML.replace('id="translate-btn"', 'id="translate-btn-mobile"')
+                                                  .replace('id="translate-current"', 'id="translate-current-mobile"')
+                                                  .replace('id="translate-dropdown"', 'id="translate-dropdown-mobile"');
+            mobileDark.insertAdjacentHTML('beforebegin', mobileTranslate);
+        }
+    }
+
+    // Load Google Translate script
+    const script = document.createElement('script');
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.body.appendChild(script);
+
+    // Google Translate init (hidden element)
+    const gtDiv = document.createElement('div');
+    gtDiv.id = 'google_translate_element';
+    gtDiv.style.display = 'none';
+    document.body.appendChild(gtDiv);
+
+    window.googleTranslateElementInit = function() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: languages.filter(l => l.code).map(l => l.code).join(','),
+            autoDisplay: false
+        }, 'google_translate_element');
+    };
+
+    // Toggle dropdown
+    function setupDropdown(btnId, dropdownId, currentId) {
+        const btn = document.getElementById(btnId);
+        const dropdown = document.getElementById(dropdownId);
+        if (!btn || !dropdown) return;
+
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Close other dropdown if open
+            document.querySelectorAll('.translate-dropdown').forEach(d => {
+                if (d !== dropdown) d.classList.remove('open');
+            });
+            dropdown.classList.toggle('open');
+            btn.setAttribute('aria-expanded', dropdown.classList.contains('open'));
+        });
+
+        dropdown.querySelectorAll('.translate-option').forEach(option => {
+            option.addEventListener('click', () => {
+                const langCode = option.dataset.lang;
+                const langLabel = option.textContent.trim().split(' ')[1] || 'EN';
+
+                // Update display on both desktop and mobile
+                const desktopCurrent = document.getElementById('translate-current');
+                const mobileCurrent = document.getElementById('translate-current-mobile');
+                const shortLabel = langCode ? langCode.toUpperCase().split('-')[0] : 'EN';
+                if (desktopCurrent) desktopCurrent.textContent = shortLabel;
+                if (mobileCurrent) mobileCurrent.textContent = shortLabel;
+
+                // Mark active
+                document.querySelectorAll('.translate-option').forEach(o => o.classList.remove('active'));
+                document.querySelectorAll(`.translate-option[data-lang="${langCode}"]`).forEach(o => o.classList.add('active'));
+
+                // Save choice to localStorage
+                localStorage.setItem('selectedLang', langCode);
+
+                // Trigger Google Translate
+                if (langCode === '') {
+                    // Reset to English
+                    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.' + window.location.hostname;
+                    localStorage.removeItem('selectedLang');
+                    location.reload();
+                } else {
+                    // Set language via Google Translate
+                    const select = document.querySelector('#google_translate_element select');
+                    if (select) {
+                        select.value = langCode;
+                        select.dispatchEvent(new Event('change'));
+                    }
+                }
+
+                dropdown.classList.remove('open');
+            });
+        });
+    }
+
+    setupDropdown('translate-btn', 'translate-dropdown', 'translate-current');
+    setupDropdown('translate-btn-mobile', 'translate-dropdown-mobile', 'translate-current-mobile');
+
+    // --- Restore saved language on page load ---
+    const savedLang = localStorage.getItem('selectedLang');
+    if (savedLang) {
+        // Update button labels
+        const shortLabel = savedLang.toUpperCase().split('-')[0];
+        const desktopCurrent = document.getElementById('translate-current');
+        const mobileCurrent = document.getElementById('translate-current-mobile');
+        if (desktopCurrent) desktopCurrent.textContent = shortLabel;
+        if (mobileCurrent) mobileCurrent.textContent = shortLabel;
+
+        // Mark active option
+        document.querySelectorAll('.translate-option').forEach(o => o.classList.remove('active'));
+        document.querySelectorAll(`.translate-option[data-lang="${savedLang}"]`).forEach(o => o.classList.add('active'));
+
+        // Wait for Google Translate to load, then apply saved language
+        const applyLang = setInterval(() => {
+            const select = document.querySelector('#google_translate_element select');
+            if (select) {
+                clearInterval(applyLang);
+                select.value = savedLang;
+                select.dispatchEvent(new Event('change'));
+            }
+        }, 500);
+
+        // Stop trying after 10 seconds
+        setTimeout(() => clearInterval(applyLang), 10000);
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.translate-dropdown').forEach(d => d.classList.remove('open'));
+    });
+}
 
 // ============================================
 // AI CHATBOT ASSISTANT
@@ -287,10 +473,39 @@ function initChatbot() {
         showTyping();
         setTimeout(() => {
             removeTyping();
+            // Get the original (untranslated) text from the user message element
+            // Google Translate modifies the DOM, so we read what's actually displayed
             const reply = getReply(text);
             addMsg(reply, 'bot');
             showFollowUps(text);
+            // Trigger Google Translate to process new chat messages
+            retranslateChat();
         }, 600 + Math.random() * 400);
+    }
+
+    // Re-trigger Google Translate on dynamically added chat content
+    function retranslateChat() {
+        const savedLang = localStorage.getItem('selectedLang');
+        if (!savedLang) return; // English, no translation needed
+
+        // Google Translate watches for DOM mutations, but sometimes
+        // needs a nudge for dynamically inserted content.
+        // We briefly toggle a class to trigger its MutationObserver.
+        const chatMsgs = document.getElementById('chat-messages');
+        if (chatMsgs) {
+            chatMsgs.classList.add('notranslate');
+            requestAnimationFrame(() => {
+                chatMsgs.classList.remove('notranslate');
+            });
+        }
+
+        // Also try re-triggering the translate select
+        setTimeout(() => {
+            const select = document.querySelector('#google_translate_element select');
+            if (select && select.value) {
+                select.dispatchEvent(new Event('change'));
+            }
+        }, 100);
     }
 
     function addMsg(text, sender) {
@@ -332,6 +547,7 @@ function initChatbot() {
     function showWelcome() {
         addMsg("Hi there! 👋 I'm Hailie's virtual assistant. I can tell you about her projects, experience, skills, and more. What would you like to know?", 'bot');
         showQuickReplies(['Who is Hailie?', 'Her projects', 'Experience', 'Contact info', 'Skills']);
+        retranslateChat();
     }
 
     function showFollowUps(query) {
@@ -345,6 +561,7 @@ function initChatbot() {
         } else {
             showQuickReplies(['Projects', 'Experience', 'Skills', 'Contact info']);
         }
+        retranslateChat();
     }
 
     // ============================================
@@ -354,14 +571,14 @@ function initChatbot() {
     function getReply(query) {
         const q = query.toLowerCase().trim();
 
-        // --- Greetings ---
-        if (/^(hi|hello|hey|sup|yo|howdy|greetings|what'?s up)[\s!?.]*$/i.test(q)) {
+        // --- Greetings (multilingual) ---
+        if (/^(hi|hello|hey|sup|yo|howdy|greetings|what'?s up|hola|bonjour|hallo|ciao|oi|olá|привет|你好|こんにちは|안녕|merhaba|cześć|xin chào|สวัสดี|hej|привіт)[\s!?.]*$/i.test(q)) {
             const g = ["Hey there! 👋 Welcome to Hailie's corner of the internet. What can I help you find?","Hi! 😊 I know basically everything about Hailie (she told me to say that). What would you like to know?","Hey! 👋 Ask me anything about Hailie — projects, experience, skills, or just some fun facts!"];
             return g[Math.floor(Math.random() * g.length)];
         }
 
         // --- Employer / Boss (MUST be before name check) ---
-        if (q.includes('employer') || q.includes('boss') || q.includes('manager') || q.includes('supervisor') || q.includes('work for') || q.includes('work under') || q.includes('report to')) {
+        if (q.includes('employer') || q.includes('boss') || q.includes('manager') || q.includes('supervisor') || q.includes('work for') || q.includes('work under') || q.includes('report to') || q.includes('empleador') || q.includes('jefe') || q.includes('arbeitgeber') || q.includes('chef') || q.includes('patron') || q.includes('雇用者') || q.includes('고용주')) {
             return "Hailie has a few! Here's the lineup:<br>💻 <b>Derek Kooi</b> — supervises her ITS Emerging Technology internship<br>🎮 <b>Arcvale Studio</b> — where she interns on Prawmite<br>🏠 <b>FSU Housing</b> — her Desk Assistant gig<br>📣 <b>DevLUp Club</b> — she's the Social Chair (technically her own boss on that one 😄)";
         }
 
@@ -376,7 +593,7 @@ function initChatbot() {
         }
 
         // --- Name (only if NOT asking about someone else) ---
-        if ((q.includes('name') || q.includes('called')) && !q.includes('employer') && !q.includes('boss') && !q.includes('professor') && !q.includes('team') && !q.includes('variable')) {
+        if ((q.includes('name') || q.includes('called') || q.includes('nombre') || q.includes('nom') || q.includes('名前') || q.includes('이름') || q.includes('имя')) && !q.includes('employer') && !q.includes('boss') && !q.includes('professor') && !q.includes('team') && !q.includes('variable')) {
             return "Her name is <b>Hailie Tucker</b>! Aspiring game dev, CS student, and the person whose portfolio you're currently browsing. 😄✨";
         }
 
@@ -490,7 +707,7 @@ function initChatbot() {
         }
 
         // --- Skills ---
-        if (q.includes('skill') || q.includes('tech') || (q.includes('language') && !q.includes('speak')) || q.includes('tool') || q.includes('know how') || q.includes('can she do') || q.includes('good at') || q.includes('stack')) {
+        if (q.includes('skill') || q.includes('tech') || (q.includes('language') && !q.includes('speak')) || q.includes('tool') || q.includes('know how') || q.includes('can she do') || q.includes('good at') || q.includes('stack') || q.includes('habilidad') || q.includes('compétence') || q.includes('fähigkeit') || q.includes('スキル') || q.includes('기술')) {
             return "Hailie's toolkit: <b>C++, C#, HTML & CSS, Git & GitHub, Blender,</b> and <b>Unity</b>. Basically a Swiss Army knife of game dev and web dev. 🛠️ Just don't ask her to name variables (her professor's words, not mine 😂).";
         }
 
@@ -500,7 +717,7 @@ function initChatbot() {
         }
 
         // --- Contact ---
-        if (q.includes('contact') || q.includes('email') || q.includes('reach') || q.includes('hire') || q.includes('message') || q.includes('get in touch')) {
+        if (q.includes('contact') || q.includes('email') || q.includes('reach') || q.includes('hire') || q.includes('message') || q.includes('get in touch') || q.includes('contacto') || q.includes('kontakt') || q.includes('連絡') || q.includes('연락')) {
             return "Want to reach Hailie? Here you go:<br>📧 <a href='mailto:hlt22c@fsu.edu'>hlt22c@fsu.edu</a><br>🔗 <a href='https://www.linkedin.com/in/hailie-tucker-b56725300/' target='_blank'>LinkedIn</a><br>🐙 <a href='https://github.com/HailieT' target='_blank'>GitHub</a><br>📸 <a href='https://www.instagram.com/hailiethehuman/' target='_blank'>Instagram</a><br>🎮 <a href='https://discord.com/users/829684294413713468' target='_blank'>Discord</a><br>🕹️ <a href='https://hailiet.itch.io/' target='_blank'>Itch.io</a><br>She doesn't bite. Probably. 😄";
         }
 
@@ -525,7 +742,7 @@ function initChatbot() {
         }
 
         // --- All projects ---
-        if (q.includes('project') || q.includes('portfolio') || q.includes('work') && q.includes('on')) {
+        if (q.includes('project') || q.includes('portfolio') || q.includes('work') && q.includes('on') || q.includes('proyecto') || q.includes('projet') || q.includes('projekt') || q.includes('プロジェクト') || q.includes('프로젝트')) {
             return "Hailie has <b>9 projects</b> spanning games, web, and hackathons! Here are the highlights:<br>🎮 <b>Prawmite</b> - Arcvale's biggest game<br>🏆 <b>AI Maker Challenge</b> - 2nd place, $2,500 prize<br>🎉 <b>Big Event Website</b> - 1200+ users<br>⚔️ <b>Dawn of Dion</b> - DevLUp 2025-2026<br>🌐 <b>DevLUp Club Website</b><br>Check the <a href='Projects.html'>Projects page</a> for all of them!";
         }
 
@@ -585,13 +802,13 @@ function initChatbot() {
             return f[Math.floor(Math.random() * f.length)];
         }
 
-        // --- Thanks ---
-        if (q.includes('thank') || q.includes('thanks') || q.includes('thx') || q.includes('appreciate')) {
+        // --- Thanks (multilingual) ---
+        if (q.includes('thank') || q.includes('thanks') || q.includes('thx') || q.includes('appreciate') || q.includes('gracias') || q.includes('merci') || q.includes('danke') || q.includes('grazie') || q.includes('obrigad') || q.includes('спасибо') || q.includes('ありがとう') || q.includes('감사') || q.includes('谢谢') || q.includes('teşekkür')) {
             return "Anytime! 😊 Go explore the rest of Hailie's portfolio!";
         }
 
-        // --- Bye ---
-        if (q.includes('bye') || q.includes('goodbye') || q.includes('see ya') || q.includes('later') || q.includes('gtg')) {
+        // --- Bye (multilingual) ---
+        if (q.includes('bye') || q.includes('goodbye') || q.includes('see ya') || q.includes('later') || q.includes('gtg') || q.includes('adiós') || q.includes('adios') || q.includes('au revoir') || q.includes('tschüss') || q.includes('ciao') || q.includes('tchau') || q.includes('さようなら') || q.includes('안녕히') || q.includes('再见') || q.includes('пока')) {
             return "Later! 👋 Thanks for stopping by!";
         }
 
